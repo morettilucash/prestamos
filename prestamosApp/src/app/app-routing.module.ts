@@ -9,27 +9,27 @@ const routes: Routes = [
   },
   {
     path: 'clientes',
-    loadChildren: () => import('./pages/clientes/clientes.module').then( m => m.ClientesPageModule)
+    loadChildren: () => import('./pages/clientes/clientes.module').then(m => m.ClientesPageModule)
+  },
+  {
+    path: 'form-clientes',
+    loadChildren: () => import('./pages/clientes/form-cliente/form-cliente.module').then(m => m.FormClientePageModule)
   },
   {
     path: 'prestamos',
-    loadChildren: () => import('./pages/prestamos/prestamos.module').then( m => m.PrestamosPageModule)
+    loadChildren: () => import('./pages/prestamos/prestamos.module').then(m => m.PrestamosPageModule)
   },
   {
     path: 'pagos',
-    loadChildren: () => import('./pages/pagos/pagos.module').then( m => m.PagosPageModule)
+    loadChildren: () => import('./pages/pagos/pagos.module').then(m => m.PagosPageModule)
   },
   {
-    path: 'folder/estadisticas',
-    loadChildren: () => import('./pages/estadisticas/estadisticas.module').then( m => m.EstadisticasPageModule)
+    path: 'estadisticas',
+    loadChildren: () => import('./pages/estadisticas/estadisticas.module').then(m => m.EstadisticasPageModule)
   },
   {
-    path: 'folder/configuraciones',
-    loadChildren: () => import('./pages/configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'configuraciones',
+    loadChildren: () => import('./pages/configuraciones/configuraciones.module').then(m => m.ConfiguracionesPageModule)
   }
 ];
 
@@ -39,4 +39,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

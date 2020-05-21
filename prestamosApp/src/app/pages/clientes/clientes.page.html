@@ -1,65 +1,51 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- <ion-grid class="ion-padding-top">
-    <ion-row class="ion-text-center">
-      <ion-col size="12">
-        <ion-icon color="primary" class="icon-size" name="contact"></ion-icon>
-      </ion-col>
+  <!-- Searchbar with cancel button shown on focus -->
+  <ion-searchbar showCancelButton="focus" placeholder="Buscar cliente.."></ion-searchbar>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input required [(ngModel)]="usuario.nombre"></ion-input>
-        </ion-item>
-      </ion-col>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Apellido</ion-label>
-          <ion-input required [(ngModel)]="usuario.apellido"></ion-input>
-        </ion-item>
-      </ion-col>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="new()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input required [(ngModel)]="usuario.email"></ion-input>
-        </ion-item>
-      </ion-col>
+  <ion-list>
+    <ion-item-sliding *ngFor="let c of clientes$ | async">
+      <ion-item-options side="start">
+        <ion-item-option (click)="edit(c)">
+          <ion-icon name="create-outline"></ion-icon>
+          Editar
+        </ion-item-option>
+      </ion-item-options>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Teléfono</ion-label>
-          <ion-input required [(ngModel)]="usuario.telefono"></ion-input>
-        </ion-item>
-      </ion-col>
+      <ion-item (click)="verPrestamos()">
+        <div slot="start" style="font-size: small;">
+          {{ c.id }}
+        </div>
+        <ion-label> {{ c.nombre }} {{ c.apeliido }}</ion-label>
+      </ion-item>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Domicilio</ion-label>
-          <ion-input required [(ngModel)]="usuario.domicilio"></ion-input>
-        </ion-item>
-      </ion-col>
+      <ion-item-options side="end">
+        <ion-item-option (click)="delete(c.id)" color="danger">
+          <ion-icon name="trash-outline"></ion-icon>
+          Borrar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Localidad</ion-label>
-          <ion-input required [(ngModel)]="usuario.localidad"></ion-input>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12">
-  
-        <ion-button (click)="post()" expand="block" fill="outline">Confirmar</ion-button>
-
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  <!-- <div *ngIf="showForm">
+    <app-form-cliente></app-form-cliente>
+  </div> -->
 
 </ion-content>

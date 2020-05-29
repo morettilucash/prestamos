@@ -3,17 +3,17 @@ import { Pagos } from './pagos';
 
 export class Prestamos {
 
-    id: number;
-    monto: number;
-    fecha_hora: Date;
-    vencimiento: Date;
-    tasa_interes: number;
-    intereses: number;
-    cantidad_cuotas: number;
-    cuotas_pagadas: number;
-    tipo_pago: string;
-    saldo: number;
-    estado: string;
-    clienteId: Clientes;
-    pagos: Pagos[];
+    id?: number;
+    monto?: number;
+    fecha_hora?: Date;
+    vencimiento?: Date;
+    tasa_interes?: number;
+    intereses?: number;
+    cantidad_cuotas?: number;
+    cuotas_pagadas?: number;
+    tipo_pago?: string;
+    saldo?: number;
+    estado?: string;
+    clienteId?: Clientes;
+    pagos?: Pagos[];
 }

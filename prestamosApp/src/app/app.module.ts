@@ -8,6 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { HttpClientModule } from '@angular/common/http';
 
+// PIPE ESPAÑOL 
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+// registrar los locales con el nombre que quieras utilizar a la hora de proveer
+registerLocaleData(localeEsAr, 'es-Ar');
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +30,10 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    {
+      provide: { RouteReuseStrategy, LOCALE_ID, useValue: 'es-Ar' },
+      useClass: IonicRouteStrategy
+    }
   ],
   bootstrap: [AppComponent]
 })

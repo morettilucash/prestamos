@@ -39,23 +39,49 @@ export class Prestamos extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     estado: string;
 
-    @ManyToOne(type=> Clientes, cliente => cliente.id )
+    @ManyToOne(type => Clientes, cliente => cliente.id)
     clienteId: Clientes;
 
-    @OneToMany(type=> Pagos, pago => pago.prestamoId )
+    @OneToMany(type => Pagos, pago => pago.prestamoId)
     pagos: Pagos[];
 
-    static findByTxtPaginated(pageNro: number, pageSize: number, attr: string, txt: string) {
+    static findPaginaByEstado(pageNro: number, pageSize: number, estado: string, order: string, ad: any) {
         const skipRecords = pageNro * pageSize;
-        // attr = col nombre, apellido, etc..
-        console.log('Filtrando por txt');
-        return this.createQueryBuilder('usuario')
-            .where(`LOWER(usuario.${attr}) LIKE LOWER(:txt)`, { txt: '%' + txt + '%' })
-            .orderBy('usuario.nombre')
-            .offset(skipRecords)
-            .limit(pageSize)
-            .getMany();
+        console.log('estado: string, order: string, ad: any');
+        console.log(estado, order, ad);
+
+        if (estado === 'Todos') {
+            console.log(`Filtrando por todos los estados, y ordenenando por ${order}`);
+            return this.createQueryBuilder('prestamos')
+                .leftJoinAndSelect('prestamos.clienteId', 'cliente')
+                .leftJoinAndSelect('prestamos.pagos', 'pago')
+                .orderBy(`prestamos.${order}`, ad)
+                .skip(skipRecords)
+                .take(pageSize)
+                .getMany();
+        } else {
+            console.log(`Filtrando por estado: ${estado}, y ordenenando por ${order}`);
+            return this.createQueryBuilder('prestamos')
+                .leftJoinAndSelect('prestamos.clienteId', 'cliente')
+                .leftJoinAndSelect('prestamos.pagos', 'pago')
+                .where(`LOWER(prestamos.estado) LIKE LOWER(:estado)`, { estado: '%' + estado + '%' })
+                .orderBy(`prestamos.${order}`, ad)
+                .skip(skipRecords)
+                .take(pageSize)
+                .getMany();
+        }
     }
 
+    // static getPrestamoByIdCliente(pageNro: number, pageSize: number, id: number) {
+    //     const skipRecords = pageNro * pageSize;
+    //     // attr = col nombre, apellido, etc..
+    //     console.log('Filtrando por txt');
+    //     return this.createQueryBuilder('prestamos')
+    //         .where(`LOWER(prestamos.${attr}) LIKE LOWER(:txt)`, { txt: '%' + txt + '%' })
+    //         .orderBy('prestamos.nombre')
+    //         .offset(skipRecords)
+    //         .limit(pageSize)
+    //         .getMany();
+    // }
 }
 

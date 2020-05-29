@@ -9,9 +9,34 @@
 
 <ion-content>
 
-  <!-- Searchbar with cancel button shown on focus -->
-  <ion-searchbar showCancelButton="focus" placeholder="Buscar cliente.."></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Searchbar with cancel button shown on focus -->
+        <ion-searchbar showCancelButton="focus" [(ngModel)]="filter" #input placeholder="Buscar cliente..">
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
 
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Filtrar por..</ion-label>
+          <ion-select placeholder="Selecccionar" [(ngModel)]="attr" (ionChange)="reset($event)">
+            <ion-select-option value="nombre">Nombre</ion-select-option>
+            <ion-select-option value="apellido">Apellido</ion-select-option>
+            <ion-select-option value="telefono">Telefono</ion-select-option>
+            <ion-select-option value="domicilio">Domicilio</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <div>
+          <app-paginacion (changePage)="pageChanged($event)"> </app-paginacion>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="new()">
@@ -28,11 +53,12 @@
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item (click)="verPrestamos()">
+      <ion-item>
         <div slot="start" style="font-size: small;">
           {{ c.id }}
         </div>
-        <ion-label> {{ c.nombre }} {{ c.apeliido }}</ion-label>
+        <ion-label (click)="verPrestamos(c.id)"> {{ c.apellido }} {{ c.nombre }}</ion-label>
+        <ion-button color="tertiary" (click)="newPrestamo(c)">Nuevo</ion-button>
       </ion-item>
 
       <ion-item-options side="end">
@@ -43,9 +69,5 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
-  <!-- <div *ngIf="showForm">
-    <app-form-cliente></app-form-cliente>
-  </div> -->
 
 </ion-content>

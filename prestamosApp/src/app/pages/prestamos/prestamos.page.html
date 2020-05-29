@@ -9,6 +9,76 @@
 
 <ion-content>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">ASC - DESC</ion-label>
+          <ion-select placeholder="Selecccionar" [(ngModel)]="ad" (ionChange)="reset($event)">
+            <ion-select-option value="ASC">Ascendiente</ion-select-option>
+            <ion-select-option value="DESC">Descendiente</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Orden</ion-label>
+          <ion-select placeholder="Selecccionar" [(ngModel)]="order" (ionChange)="reset($event)">
+            <ion-select-option value="monto">Monto</ion-select-option>
+            <ion-select-option value="saldo">Saldo</ion-select-option>
+            <ion-select-option value="estado">Estado</ion-select-option>
+            <ion-select-option value="fecha_hora">Fecha</ion-select-option>
+            <ion-select-option value="vencimiento">Vencimiento</ion-select-option>
+            <ion-select-option value="tasa_interes">Tasa interés</ion-select-option>
+            <ion-select-option value="intereses">Intereses</ion-select-option>
+            <ion-select-option value="cantidad_cuotas">Cant. cuotas</ion-select-option>
+            <ion-select-option value="cuotas_pagadas">Cuotas pagadas</ion-select-option>
+            <ion-select-option value="tipo_pago">Tipo pago</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Estado</ion-label>
+          <ion-select placeholder="Selecccionar" [(ngModel)]="estado" (ionChange)="reset($event)">
+            <ion-select-option value="Todos">Todos</ion-select-option>
+            <ion-select-option value="Vigente">Vigente</ion-select-option>
+            <ion-select-option value="Deuda">Deuda</ion-select-option>
+            <ion-select-option value="Pagado">Pagado</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <div>
+          <app-paginacion (changePage)="pageChanged($event)"> </app-paginacion>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item *ngFor="let p of prestamos" (click)="verPrestamo(p.id)">
+      <div slot="start" style="font-size: small;">
+        {{ p.id }}
+      </div>
+      <ion-label>
+        <h2> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }}</h2>
+        <small> Realizado: {{ p.fecha_hora | date: 'dd-MM-yyyy'}} </small>
+        <small> Vence: {{ p.fecha | date: 'dd-MM-yyyy'}} </small>
+      </ion-label>
+      <div slot="end" [ngClass]="{
+          'alert': p.estado === 'Vigente', 
+          'success': p.estado === 'Pagado',
+          'danger': p.estado === 'Deuda'
+        }">
+        <h4> {{ p.estado}} </h4>
+      </div>
+    </ion-item>
+  </ion-list>
 
 
 </ion-content>

@@ -66,7 +66,6 @@ export class PrestamosController {
                 prestamo.tipo_pago = req.body.tipo_pago;
                 prestamo.saldo = req.body.saldo;
                 prestamo.estado = req.body.estado;
-
                 prestamo.clienteId = req.body.clienteId;
                 prestamo.pagos = req.body.pagos;
 
@@ -97,16 +96,26 @@ export class PrestamosController {
             .catch(err => { res.json(err.message); });
     };
 
-    public async findByTxtPaginated(req: Request, res: Response) {
-
+    public async findPaginaByEstado(req: Request, res: Response) {
         let pageNro: any = req.query.pageNro;
         let pageSize: any = req.query.pageSize;
-        let filter: any = req.query.filter || '';
-        let attr: any = req.query.attr || 'nombre';  // columna por la cual filtrar
+        let estado: any = req.query.estado || '';
+        let order: any = req.query.order || 'estado';  // columna por la cual ordenar
+        let ad: any = req.query.ad || 'ASC';  // ascendiente o descendiente
 
-        let prestamos = await Prestamos.findByTxtPaginated(pageNro, pageSize, attr, filter);
+        let prestamos = await Prestamos.findPaginaByEstado(pageNro, pageSize, estado, order, ad);
         res.send({ prestamos });
+    }
 
+    public async getPrestamoByIdCliente(req: Request, res: Response) {
+        let id: any = req.params.id;
+        await Prestamos.find({
+            where: { clienteId: id },
+            order: { fecha_hora: "ASC" },
+            relations: ['clienteId', 'pagos']
+        })
+            .then(producto => { res.json(producto) })
+            .catch(err => { res.send(err); })
     }
 
 

@@ -16,7 +16,7 @@ export class FormClientePage implements OnInit {
 
   constructor(private _clientes: ClientesService, private _router: Router) {
 
-    this.cliente$ = this._clientes.obsUser().pipe(map((c: Clientes) => { return c }));
+    this.cliente$ = this._clientes.obsUser().pipe(map((c: Clientes) => { return c }))
 
   }
 

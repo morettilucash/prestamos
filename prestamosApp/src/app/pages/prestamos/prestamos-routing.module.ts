@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: PrestamosPage
+  },
+  {
+    path: 'form-prestamos',
+    loadChildren: () => import('./form-prestamos/form-prestamos.module').then( m => m.FormPrestamosPageModule)
   }
 ];
 

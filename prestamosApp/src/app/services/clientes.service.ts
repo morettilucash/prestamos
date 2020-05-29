@@ -5,8 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { Clientes } from '../models/Clientes';
 import { Router } from '@angular/router';
 import { HttpOptions } from './globales/httpOptions';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, flatMap, filter } from 'rxjs/operators';
 import { HandleErrorService } from './globales/handle-error.service';
+import { EndpointsService } from './endpoints.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,9 @@ export class ClientesService {
 
   private UrlRestS = Endpoint.UrlRest + '/clientes';
   private UrlRest = Endpoint.UrlRest + '/cliente';
+
+  // private UrlRestS = this._ep.UrlRest + '/clientes';
+  // private UrlRest = this._ep.UrlRest + '/cliente';
 
   httpOptions = HttpOptions.httpOptions;
   private clientes: Clientes[] = null;
@@ -25,7 +29,7 @@ export class ClientesService {
   hideFormSubject = new Subject<boolean>();
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient, private _ep: EndpointsService,
     private he: HandleErrorService,
     private router: Router) {
   }
@@ -33,35 +37,13 @@ export class ClientesService {
   // Clientes
   // =======================================
   public passUser(user: Clientes): void {
-    this.user = user;
-    this.returnUser();
-  }
-
-  public returnUser() {
-    return this.clienteSubject.next(this.user);
+    return this.clienteSubject.next(user);
   }
 
   public obsUser(): Observable<Clientes> {
     return this.clienteSubject.asObservable();
   }
 
-    public obsForm(): Observable<boolean> {
-    return this.hideFormSubject.asObservable();
-  }
-
-  public hide(state: boolean) {
-    return this.hideFormSubject.next(state);
-  }
-  // Form
-  // =======================================
-  // public obsForm(): Observable<boolean> {
-  //   return this.hideFormSubject.asObservable();
-  // }
-
-  // public hide(state: boolean) {
-  //   return this.hideFormSubject.next(state);
-  // }
-  // =======================================
   public getPaginatedByTxt(size: number, nro: number, attr: string, txt: string): Observable<Clientes[]> {
     let params = new HttpParams()
       .set('pageSize', size.toString())
@@ -72,12 +54,12 @@ export class ClientesService {
       .pipe(
         map(res => { return <Clientes[]>res['clientes'] }),
         catchError(this.he.handleError)
-      );
+      )
   }
 
   //  ====================================================================================
   public getAll() {
-    console.log('Endpoint.UrlRest SERVICE', Endpoint.UrlRest);
+    console.log('Endpoint.UrlRest SERVICE', this.UrlRest);
     return this.http.get<Clientes[]>(`${this.UrlRestS}`, this.httpOptions)
       .pipe(
         map(res => { return <Clientes[]>res }),

@@ -31,7 +31,7 @@ export class Clientes extends BaseEntity {
     @Column({ type: 'timestamp', nullable: true })
     updated_at: Date;
 
-    
+
     static findByEmail(email: string) {
         return this.createQueryBuilder("usuario")
             .where("usuario.email = :email", { email })
@@ -47,13 +47,22 @@ export class Clientes extends BaseEntity {
     static findByTxtPaginated(pageNro: number, pageSize: number, attr: string, txt: string) {
         const skipRecords = pageNro * pageSize;
         // attr = col nombre, apellido, etc..
-        console.log('Filtrando por txt');
-        return this.createQueryBuilder('usuario')
-            .where(`LOWER(usuario.${attr}) LIKE LOWER(:txt)`, { txt: '%' + txt + '%' })
-            .orderBy('usuario.nombre')
-            .offset(skipRecords)
-            .limit(pageSize)
-            .getMany();
+        if (txt === '') {
+            console.log('Solo paginado');
+            return this.createQueryBuilder('usuario')
+                .skip(skipRecords)
+                .take(pageSize)
+                .orderBy('usuario.nombre')
+                .getMany();
+        } else {
+            console.log('paginado por txt');
+            return this.createQueryBuilder('usuario')
+                .where(`LOWER(usuario.${attr}) LIKE LOWER(:txt)`, { txt: '%' + txt + '%' })
+                .orderBy('usuario.nombre')
+                .skip(skipRecords)
+                .take(pageSize)
+                .getMany();
+        }
     }
 
 }

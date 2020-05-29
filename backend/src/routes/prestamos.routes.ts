@@ -10,16 +10,19 @@ export class PrestamosRouter {
         app.route('/api/v1/prestamos')
             .get((req: Request, res: Response, next: NextFunction) => {
                 next();
-            },  this.controlador.getPrestamos)
+            }, this.controlador.getPrestamos)
             .post(this.controlador.createPrestamo);
 
         app.route('/api/v1/prestamo/:id')
-            .get( this.controlador.getPrestamo)
+            .get(this.controlador.getPrestamo)
             .put(this.controlador.updatePrestamo)
-            .delete( this.controlador.deletePrestamo);
+            .delete(this.controlador.deletePrestamo);
 
+        app.route('/api/v1/prestamos/cliente/:id')
+            .get(this.controlador.getPrestamoByIdCliente)
+            
         app.route('/api/v1/prestamos/paginado')
-            .get(this.controlador.findByTxtPaginated);
+            .get(this.controlador.findPaginaByEstado);
 
     }
 

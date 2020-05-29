@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'prestamos',
+    redirectTo: 'clientes',
     pathMatch: 'full'
   },
   {
@@ -18,6 +18,15 @@ const routes: Routes = [
   {
     path: 'prestamos',
     loadChildren: () => import('./pages/prestamos/prestamos.module').then(m => m.PrestamosPageModule)
+  },
+  {
+    path: 'prestamos/cliente/:id',
+    loadChildren: () => import('./pages/prestamos/prestamos.module').then(m => m.PrestamosPageModule)
+  },
+  {
+    path: 'prestamos/detalles/:id',
+    loadChildren: () => import('./pages/prestamos/prestamos-detalles/prestamos-detalles.module')
+      .then(m => m.PrestamosDetallesPageModule)
   },
   {
     path: 'pagos',

@@ -61,22 +61,23 @@
   </ion-grid>
 
   <ion-list>
-    <ion-item *ngFor="let p of prestamos" (click)="verPrestamo(p.id)">
+    <ion-item *ngFor="let p of prestamos" (click)="verPrestamo(p.id)" [ngClass]="{
+      'alert': p.estado === 'Vigente', 
+      'success': p.estado === 'Pagado',
+      'danger': p.estado === 'Deuda'    }">
+
       <div slot="start" style="font-size: small;">
         {{ p.id }}
       </div>
       <ion-label>
         <h2> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }}</h2>
         <small> Realizado: {{ p.fecha_hora | date: 'dd-MM-yyyy'}} </small>
-        <small> Vence: {{ p.fecha | date: 'dd-MM-yyyy'}} </small>
+        <small> Vence: {{ p.vencimiento | date: 'dd-MM-yyyy'}} </small>
       </ion-label>
-      <div slot="end" [ngClass]="{
-          'alert': p.estado === 'Vigente', 
-          'success': p.estado === 'Pagado',
-          'danger': p.estado === 'Deuda'
-        }">
+      <div slot="end">
         <h4> {{ p.estado}} </h4>
       </div>
+
     </ion-item>
   </ion-list>
 

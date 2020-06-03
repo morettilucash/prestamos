@@ -28,16 +28,16 @@ export class AppComponent implements OnInit {
       url: 'pagos',
       icon: 'list'
     },
-    {
-      title: 'Cuotas',
-      url: 'cuotas',
-      icon: 'archive'
-    },
-    {
-      title: 'Sincronización',
-      url: 'estadisticas',
-      icon: 'cloud-upload'
-    },
+    // {
+    //   title: 'Cuotas',
+    //   url: 'cuotas',
+    //   icon: 'archive'
+    // },
+    // {
+    //   title: 'Sincronización',
+    //   url: 'estadisticas',
+    //   icon: 'cloud-upload'
+    // },
     {
       title: 'Configuración',
       url: 'configuraciones',

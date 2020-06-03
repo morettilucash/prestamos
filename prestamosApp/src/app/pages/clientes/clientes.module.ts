@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ClientesPageRoutingModule } from './clientes-routing.module';
 
 import { ClientesPage } from './clientes.page';
-import { PaginacionComponent } from 'src/app/services/globales/paginacion/paginacion.component';
+import { PaginacionModule } from 'src/app/services/globales/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClientesPageRoutingModule
+    ClientesPageRoutingModule,
+    PaginacionModule
   ],
-  declarations: [ClientesPage, PaginacionComponent]
+  declarations: [ClientesPage]
 })
 export class ClientesPageModule { }

@@ -1,0 +1,53 @@
+heroku:
+Host
+ec2-34-200-72-77.compute-1.amazonaws.com
+Database
+dc2r0v6fmdr9q1
+User
+emusuiwlhaifgf
+Port
+5432
+Password
+04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c
+URI
+postgres://emusuiwlhaifgf:04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c@ec2-34-200-72-77.compute-1.amazonaws.com:5432/dc2r0v6fmdr9q1
+Heroku CLI
+heroku pg:psql postgresql-asymmetrical-39762 --app backprestamos
+
+{
+    "type": "postgres",
+    "host": "ec2-34-200-72-77.compute-1.amazonaws.com",
+    "port": 5432,
+    "username": "emusuiwlhaifgf",
+    "password": "04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c",
+    "database": "dc2r0v6fmdr9q1",
+    "entities": [
+        "dist/src/Entities/**/*{.ts,.js}"
+    ],
+    "migrationsTableName": "app_migration_table",
+    "migrations": [
+        "dist/migration/**{.ts,.js}"
+    ],
+    "cli": {
+        "migrationsDir": "migration"
+    }
+}
+
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "root",
+    "database": "prestamos",
+    "entities": [
+        "dist/src/Entities/**/*{.ts,.js}"
+    ],
+    "migrationsTableName": "app_migration_table",
+    "migrations": [
+        "dist/migration/**{.ts,.js}"
+    ],
+    "cli": {
+        "migrationsDir": "migration"
+    }
+}

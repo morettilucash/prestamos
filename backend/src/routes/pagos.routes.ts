@@ -19,7 +19,7 @@ export class PagosRouter {
             .delete( this.controlador.deletePago);
 
         app.route('/api/v1/pagos/paginado')
-            .get(this.controlador.findByTxtPaginated);
+            .get(this.controlador.findPaginated);
 
     }
 

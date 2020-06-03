@@ -10,7 +10,7 @@
 <ion-content>
 
   <ion-grid>
-    <ion-row>
+    <ion-row class="ion-align-items-center">
       <ion-col size="12">
         <!-- Searchbar with cancel button shown on focus -->
         <ion-searchbar showCancelButton="focus" [(ngModel)]="filter" #input placeholder="Buscar cliente..">
@@ -18,7 +18,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row  class="ion-align-items-center">
       <ion-col size="6">
         <ion-item>
           <ion-label position="floating">Filtrar por..</ion-label>
@@ -54,11 +54,12 @@
       </ion-item-options>
 
       <ion-item>
-        <div slot="start" style="font-size: small;">
-          {{ c.id }}
+        <div slot="start">
+          <ion-button shape="round" fill="outline" size="small" color="primary" (click)="newPrestamo(c)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
         </div>
         <ion-label (click)="verPrestamos(c.id)"> {{ c.apellido }} {{ c.nombre }}</ion-label>
-        <ion-button color="tertiary" (click)="newPrestamo(c)">Nuevo</ion-button>
       </ion-item>
 
       <ion-item-options side="end">

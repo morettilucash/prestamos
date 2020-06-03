@@ -1,13 +1,13 @@
 .danger {
-    background-color: red;
+    --ion-background-color: #ff2b2b;
 }
 
 .success {
-    background-color: rgb(74, 228, 3);
+    --ion-background-color: rgb(92, 255, 17);
 }
 
 .alert {
-    background-color: rgb(238, 255, 0);
+    --ion-background-color: rgb(245, 255, 112);
 }
 
 h4 {

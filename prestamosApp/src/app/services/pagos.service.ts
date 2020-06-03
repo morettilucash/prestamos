@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { EndpointsService } from './endpoints.service';
 import { HandleErrorService } from './globales/handle-error.service';
 import { Router } from '@angular/router';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

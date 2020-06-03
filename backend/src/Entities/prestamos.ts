@@ -9,7 +9,7 @@ export class Prestamos extends BaseEntity {
     @PrimaryGeneratedColumn('increment', { type: 'integer' })
     id: number;
 
-    @Column({ type: 'double', nullable: false })
+    @Column({ type: 'real', nullable: false })
     monto: number;
 
     @Column({ type: 'timestamp', nullable: true })
@@ -18,10 +18,10 @@ export class Prestamos extends BaseEntity {
     @Column({ type: 'timestamp', nullable: true })
     vencimiento: Date;
 
-    @Column({ type: 'double', nullable: true })
+    @Column({ type: 'real', nullable: true })
     tasa_interes: number;
 
-    @Column({ type: 'double', nullable: true })
+    @Column({ type: 'real', nullable: true })
     intereses: number;
 
     @Column({ type: 'int', nullable: true })
@@ -33,7 +33,7 @@ export class Prestamos extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     tipo_pago: string;
 
-    @Column({ type: 'double', nullable: true })
+    @Column({ type: 'real', nullable: true })
     saldo: number;
 
     @Column({ type: 'varchar', nullable: true })

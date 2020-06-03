@@ -1,10 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Migrations
-/migration
+#/migration
 
 # compiled output
-/dist
+#/dist
 /tmp
 /out-tsc
 

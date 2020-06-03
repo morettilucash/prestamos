@@ -24,7 +24,7 @@ export class FormClientePage implements OnInit {
   }
 
   regresar() {
-    this._router.navigate(['clientes'])
+    this._router.navigate(['clientes']).then(() => this._clientes.refreshPag(true));
   }
 
   send(c: Clientes) {
@@ -33,14 +33,12 @@ export class FormClientePage implements OnInit {
   }
 
   post(c: Clientes) {
-    console.log('c POST', c);
     this._clientes.post(c).toPromise()
       .then(res => { this.regresar() })
       .catch(err => console.log(err));
   }
 
   update(c: Clientes) {
-    console.log('c UPD', c);
     this._clientes.update(c).toPromise()
       .then(res => { this.regresar() })
       .catch(err => console.log(err));

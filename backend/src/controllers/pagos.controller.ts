@@ -80,14 +80,12 @@ export class PagosController {
             .catch(err => { res.json(err.message); });
     };
 
-    public async findByTxtPaginated(req: Request, res: Response) {
+    public async findPaginated(req: Request, res: Response) {
 
         let pageNro: any = req.query.pageNro;
         let pageSize: any = req.query.pageSize;
-        let filter: any = req.query.filter || '';
-        let attr: any = req.query.attr || 'nombre';  // columna por la cual filtrar
 
-        let pagos = await Pagos.findByTxtPaginated(pageNro, pageSize, attr, filter);
+        let pagos = await Pagos.findPaginated(pageNro, pageSize);
         res.send({ pagos });
 
     }

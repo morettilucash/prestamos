@@ -26,7 +26,7 @@ export class ClientesService {
 
   user: Clientes;
   clienteSubject = new Subject<Clientes>();
-  hideFormSubject = new Subject<boolean>();
+  refreshSub = new Subject<boolean>();
 
   constructor(
     private http: HttpClient, private _ep: EndpointsService,
@@ -42,6 +42,14 @@ export class ClientesService {
 
   public obsUser(): Observable<Clientes> {
     return this.clienteSubject.asObservable();
+  }
+
+  public refreshPag(ref: boolean): void {
+    return this.refreshSub.next(ref);
+  }
+
+  public obsRefresh(): Observable<boolean> {
+    return this.refreshSub.asObservable();
   }
 
   public getPaginatedByTxt(size: number, nro: number, attr: string, txt: string): Observable<Clientes[]> {

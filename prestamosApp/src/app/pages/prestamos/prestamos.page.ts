@@ -26,14 +26,7 @@ export class PrestamosPage implements OnInit {
   constructor(private _prestamos: PrestamosService, private _router: Router, private _actRoute: ActivatedRoute, private _pag: PaginacionService) { }
 
   ngOnInit() {
-    // this.clienteId = parseInt(this._actRoute.snapshot.paramMap.get('id'));
-    // if (this.clienteId) {
-    //   console.log('Obteniendo x id cliente:', this.clienteId);
-    //   this.getByIdCliente();
-    // } else {
-    //   console.log('Obteniendo todos');
-    //   this.getAll();
-    // }
+
   }
 
   getAll() {
@@ -80,13 +73,15 @@ export class PrestamosPage implements OnInit {
   }
 
   getPag() {
-    console.log('getPag');
-    console.log('this.size, this.nro, this.estado, this.order, this.ad');
-    console.log(this.size, this.nro, this.estado, this.order, this.ad);
-
-    this.prestamos = [];
-    this._prestamos.getPaginated(this.size, this.nro, this.estado, this.order, this.ad)
-      .subscribe(
+    this.clienteId = parseInt(this._actRoute.snapshot.paramMap.get('id'));
+    
+    if (this.clienteId) {
+      console.log('Obteniendo x id cliente:', this.clienteId);
+      this.getByIdCliente();
+    } else {
+      console.log('Obteniendo paginado');
+      this.prestamos = [];
+      this._prestamos.getPaginated(this.size, this.nro, this.estado, this.order, this.ad).subscribe(
         (data: Prestamos[]) => {
           if (data.length === 0) {
             this._pag.setBlockBtn(true);
@@ -98,9 +93,8 @@ export class PrestamosPage implements OnInit {
         err => {
           console.log(err);
 
-        }
-      );
-
+        });
+    }
   }
 
 }

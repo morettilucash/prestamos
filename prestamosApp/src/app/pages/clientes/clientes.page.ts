@@ -14,6 +14,7 @@ import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class ClientesPage implements OnInit, AfterViewInit {
 
   evtSus: Subscription;
+  refSus: Subscription;
   clientes$: Observable<Clientes[]>;
   attr: string = 'apellido';
   filter: string = '';
@@ -25,7 +26,8 @@ export class ClientesPage implements OnInit, AfterViewInit {
   constructor(private _clientes: ClientesService, private _router: Router, private _pag: PaginacionService) { }
 
   ngOnInit() {
-    // this.getPag();
+    this.refSus = this._clientes.obsRefresh().subscribe(
+      (val: boolean) => { if (val) this.getPag() })
   }
 
   ngAfterViewInit() {
@@ -44,7 +46,7 @@ export class ClientesPage implements OnInit, AfterViewInit {
     this.getPag();
   }
 
-  reset() {  // reseteamos el nro de paginado
+  reset(evt?) {  // reseteamos el nro de paginado
     this._pag.setPag(0);
     this.getPag();
   }

@@ -33,7 +33,10 @@ import { AppRoutingModule } from './app-routing.module';
     StatusBar,
     SplashScreen,
     {
-      provide: { RouteReuseStrategy, LOCALE_ID, useValue: 'es-Ar' },
+      provide: LOCALE_ID, useValue: 'es-Ar'
+    },
+    {
+      provide: { RouteReuseStrategy },
       useClass: IonicRouteStrategy
     }
   ],

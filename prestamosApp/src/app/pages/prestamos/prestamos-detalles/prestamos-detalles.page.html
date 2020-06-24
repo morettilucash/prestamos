@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar *ngIf="prestamo$ | async as p">
     <ion-buttons slot="start">
-      <ion-icon name="arrow-back-outline" (click)="regresar(p.clienteId.id)"></ion-icon>
+      <ion-icon name="arrow-back-outline" (click)="regresar()"></ion-icon>
     </ion-buttons>
     <ion-title>prestamos-detalles</ion-title>
   </ion-toolbar>
@@ -11,61 +11,64 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }} </ion-card-title>
-      <ion-card-subtitle> </ion-card-subtitle>
+      <ion-card-title>
+        {{ p.clienteId.nombre }} {{ p.clienteId.apellido }}
+      </ion-card-title>
+      <ion-card-subtitle>
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-text>
-
-        Monto: {{ p.monto | currency }}
-        <br>
-        Realizado: {{ p.fecha_hora | date: 'dd-MM-yyyy' }} -
-        Vence: {{ p.vencimiento | date: 'dd-MM-yyyy' }}
-        <br>
-        Tasa de int.: {{ p.tasa_interes }} - Intereses: {{ p.intereses }}
-        <br>
-        Cuotas: {{ p.cantidad_cuotas }} - Pagadas: {{ p.cuotas_pagadas }}
-        <br>
-        Tipo pago: {{ p.tipo_pago }} - Saldo: {{ p.saldo  | currency }}
-        <br>
-        Estado: {{ p.estado }}
-        <br>
-
-        Pagos:
-        <ul>
-          <li *ngFor="let pa of p.pagos">
-            Cuota: {{ pa.nro_cuota }} - Monto: {{ pa.monto | currency }} - Venc.:
-            {{ p.vencimiento | date: 'dd-MM-yyyy' }}
-          </li>
-        </ul>
-
-      </ion-text>
-      <div>
-        Agregar pago:
-        <ion-item>
-          <ion-label position="floating">Monto</ion-label>
-          <ion-input type="number" [(ngModel)]="monto"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Nro. cuota</ion-label>
-          <ion-input type="number" [(ngModel)]="nro_cuota"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Fecha</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" [(ngModel)]="vencimiento" placeholder="Seleccionar fecha">
-          </ion-datetime>
-        </ion-item>
-
-        <ion-col size="12">
-          <ion-button (click)="savePago()" expand="block" fill="outline">Confirmar</ion-button>
-        </ion-col>
-
-      </div>
+      <p>Monto: {{ p.monto | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
+      <p>Realizado: {{ p.fecha_hora | date: 'yyyy-MM-dd'}} </p>
+      <p>Vence: {{ p.vencimiento | date: 'yyyy-MM-dd' }}</p>
+      <p>Tasa: %{{ p.tasa_interes }} - Intereses: {{ p.intereses | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
+      <p>Cuotas: {{ p.cantidad_cuotas }} - Pagadas: {{ p.cuotas_pagadas }}</p>
+      <p>Tipo pago: {{ p.tipo_pago }} </p>
+      <p>Saldo: {{ p.saldo  | currency : 'ARS' : 'symbol': '1.0-0'  }}</p>
+      <p>Estado: {{ p.estado }}</p>
+      <p>Valor de c/cuota: {{ monto_cuota | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
+      <p>Pagos:</p>
+      <ul>
+        <li *ngFor="let pa of p.pagos">
+          <p>
+            Cuota: {{ pa.nro_cuota }} - Monto: {{ pa.monto | currency : 'ARS' : 'symbol': '1.0-0'  }}
+            <!-- - Venc.: {{ p.vencimiento | date: 'dd-MM-yyyy' }} -->
+          </p>
+        </li>
+      </ul>
 
     </ion-card-content>
   </ion-card>
+  <ion-card>
+    <ion-card-content>
+
+      <!-- <div> -->
+      <p> Agregar pago: </p>
+      <ion-item>
+        <ion-label position="floating">Monto</ion-label>
+        <ion-input type="number" [(ngModel)]="monto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nro. cuota</ion-label>
+        <ion-input type="number" [(ngModel)]="nro_cuota"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Fecha</ion-label>
+        <ion-datetime min="2016" max="2050-12-31" displayFormat="YYYY-MM-DD" [(ngModel)]="vencimiento"
+          placeholder="Seleccionar fecha">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-col size="12">
+        <ion-button (click)="savePago()" expand="block" fill="outline">Confirmar</ion-button>
+      </ion-col>
+
+      <!-- </div> -->
+    </ion-card-content>
+  </ion-card>
+
 
 </ion-content>

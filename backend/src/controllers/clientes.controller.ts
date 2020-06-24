@@ -54,6 +54,7 @@ export class ClientesController {
         cliente.nombre = req.body.nombre;
         cliente.apellido = req.body.apellido;
         cliente.domicilio = req.body.domicilio;
+        cliente.localidad = req.body.localidad;
         cliente.created_at = new Date();
         cliente.updated_at = new Date();
 
@@ -104,10 +105,10 @@ export class ClientesController {
         Clientes.findOne({ id })
             .then(async (cliente: Clientes) => {
                 console.log('cliente', cliente);
-                console.log('req.body', req.body);
                 cliente.nombre = req.body.nombre;
                 cliente.apellido = req.body.apellido;
                 cliente.domicilio = req.body.domicilio;
+                cliente.localidad = req.body.localidad;
                 cliente.updated_at =  new Date();
 
                 if (cliente.email !== email) {

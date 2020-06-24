@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Pagos } from 'src/app/models/pagos';
 import { PagosService } from 'src/app/services/pagos.service';
 import { ToastsService } from 'src/app/services/toasts.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-prestamos-detalles',
@@ -15,11 +16,12 @@ import { ToastsService } from 'src/app/services/toasts.service';
 export class PrestamosDetallesPage implements OnInit {
 
   prestamo$: Observable<Prestamos>;
+  prestamo: Prestamos;
   prestamoId: number;
-
   monto: number;
   nro_cuota: number;
   vencimiento: Date;
+  monto_cuota: number
 
   constructor(private _prestamos: PrestamosService, private _router: Router, private _actRoute: ActivatedRoute,
     private _pagos: PagosService, public _toast: ToastsService) { }
@@ -30,11 +32,20 @@ export class PrestamosDetallesPage implements OnInit {
   }
 
   getByIdPrestamo() {
-    this.prestamo$ = this._prestamos.get(this.prestamoId);
+    this.prestamo$ = this._prestamos.get(this.prestamoId)
+      .pipe(
+        tap(p => {
+          this.prestamo = p;
+          console.log('saldo',this.prestamo.saldo);
+          console.log('cantidad_cuotas',this.prestamo.cantidad_cuotas);
+          
+          this.monto_cuota = (this.prestamo.saldo / this.prestamo.cantidad_cuotas);
+        })
+      );
   }
 
-  regresar(clienteId: number) {
-    this._router.navigate(['prestamos/cliente/', clienteId])
+  regresar() {
+    this._router.navigate(['prestamos']);
   }
 
   savePago() {
@@ -43,7 +54,12 @@ export class PrestamosDetallesPage implements OnInit {
     pago.nro_cuota = this.nro_cuota;
     pago.vencimiento = this.vencimiento;
     pago.prestamoId = this.prestamoId;
-    console.log('pago', pago)
+
+
+
+    console.log('this.prestamo', this.prestamo);
+
+
 
     if (pago.monto === null || pago.monto === undefined) {
       return this._toast.presentToast('Completa el monto.');
@@ -55,10 +71,13 @@ export class PrestamosDetallesPage implements OnInit {
       return this._toast.presentToast('Completa el vencimiento.');
     }
 
-    this._pagos.post(pago).subscribe(
-      (data) => { console.log('POST EXITOSO', data); this.getByIdPrestamo(); this.cleanPago() },
-      err => { console.log('Error', err); }
-    );
+    // this._pagos.post(pago).subscribe(
+    //   (data) => {
+    //     this.getByIdPrestamo();
+    //     this.cleanPago();
+    //   },
+    //   err => { console.log('Error', err); }
+    // );
   }
 
   cleanPago() {

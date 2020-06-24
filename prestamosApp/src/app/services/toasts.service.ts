@@ -10,6 +10,7 @@ export class ToastsService {
 
   async presentToast(msj) {
     const toast = await this.toastController.create({
+      color: 'tertiary',
       message: msj,
       duration: 2000
     });

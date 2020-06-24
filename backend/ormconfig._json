@@ -51,3 +51,4 @@ heroku pg:psql postgresql-asymmetrical-39762 --app backprestamos
         "migrationsDir": "migration"
     }
 }
+

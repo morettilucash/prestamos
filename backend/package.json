@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "helmet": "^3.22.0",
     "moment": "^2.25.1",
     "morgan": "^1.10.0",
@@ -32,8 +33,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.9.1",
     "typeorm": "^0.2.24",
-    "typescript": "3.8.3",
-    "faker": "^4.1.0"
+    "typescript": "3.8.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",

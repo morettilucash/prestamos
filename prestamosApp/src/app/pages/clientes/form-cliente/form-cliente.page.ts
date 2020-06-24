@@ -28,7 +28,6 @@ export class FormClientePage implements OnInit {
   }
 
   send(c: Clientes) {
-    console.log('c SEND', c);
     c.id === null ? this.post(c) : this.update(c);
   }
 
@@ -43,7 +42,6 @@ export class FormClientePage implements OnInit {
       .then(res => { this.regresar() })
       .catch(err => console.log(err));
   }
-
 
 
 }

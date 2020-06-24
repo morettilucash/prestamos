@@ -28,6 +28,8 @@ export class ClientesPage implements OnInit, AfterViewInit {
   ngOnInit() {
     this.refSus = this._clientes.obsRefresh().subscribe(
       (val: boolean) => { if (val) this.getPag() })
+
+
   }
 
   ngAfterViewInit() {
@@ -64,7 +66,6 @@ export class ClientesPage implements OnInit, AfterViewInit {
   }
 
   getPag() {
-    console.log('ejecutando getPag');
     this.clientes$ = this._clientes.getPaginatedByTxt(this.size, this.nro, this.attr, this.filter)
       .pipe(tap((data: Clientes[]) => {
         if (data.length === 0) {

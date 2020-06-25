@@ -16,7 +16,7 @@ class PagosController {
     getPagos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield pagos_1.Pagos.find({
-                order: { vencimiento: "ASC" }
+                order: { fecha_hora: "ASC" }
             })
                 .then(pago => { res.json(pago); })
                 .catch(err => { res.json(err.message); });
@@ -25,7 +25,7 @@ class PagosController {
     getPago(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let id = parseInt(req.params.id);
-            yield pagos_1.Pagos.findOne({ id }, { relations: ['comercios'] })
+            yield pagos_1.Pagos.findOne({ id })
                 .then(pago => { res.json(pago); })
                 .catch(err => { res.json(err.message); });
         });
@@ -34,7 +34,7 @@ class PagosController {
         return __awaiter(this, void 0, void 0, function* () {
             let pago = new pagos_1.Pagos();
             pago.monto = req.body.monto;
-            pago.vencimiento = req.body.vencimiento;
+            pago.fecha_hora = req.body.fecha_hora;
             pago.nro_cuota = req.body.nro_cuota;
             pago.prestamoId = req.body.prestamoId;
             pago.save()
@@ -51,10 +51,8 @@ class PagosController {
             let id = parseInt(req.params.id);
             pagos_1.Pagos.findOne({ id })
                 .then((pago) => __awaiter(this, void 0, void 0, function* () {
-                console.log('pago', pago);
-                console.log('req.body', req.body);
                 pago.monto = req.body.monto;
-                pago.vencimiento = req.body.vencimiento;
+                pago.fecha_hora = req.body.fecha_hora;
                 pago.nro_cuota = req.body.nro_cuota;
                 pago.prestamoId = req.body.prestamoId;
                 pago.save()

@@ -1,26 +1,24 @@
-heroku:
 Host
-ec2-34-200-72-77.compute-1.amazonaws.com
+ec2-3-216-129-140.compute-1.amazonaws.com
 Database
-dc2r0v6fmdr9q1
+d96lftkd1nla9s
 User
-emusuiwlhaifgf
+oaianlglznfgol
 Port
 5432
 Password
-04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c
+5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729
 URI
-postgres://emusuiwlhaifgf:04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c@ec2-34-200-72-77.compute-1.amazonaws.com:5432/dc2r0v6fmdr9q1
-Heroku CLI
-heroku pg:psql postgresql-asymmetrical-39762 --app backprestamos
+postgres://oaianlglznfgol:5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729@ec2-3-216-129-140.compute-1.amazonaws.com:5432/d96lftkd1nla9s
+
 
 {
     "type": "postgres",
-    "host": "ec2-34-200-72-77.compute-1.amazonaws.com",
+    "host": "ec2-3-216-129-140.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "emusuiwlhaifgf",
-    "password": "04e1647873953fae826a444596701cb9d1ffce9b3588452450fbd67575e1b60c",
-    "database": "dc2r0v6fmdr9q1",
+    "username": "oaianlglznfgol",
+    "password": "5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729",
+    "database": "d96lftkd1nla9s",
     "entities": [
         "dist/src/Entities/**/*{.ts,.js}"
     ],

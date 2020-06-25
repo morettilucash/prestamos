@@ -14,10 +14,8 @@ const prestamos_1 = require("./prestamos");
 let Pagos = class Pagos extends typeorm_1.BaseEntity {
     static findPaginated(pageNro, pageSize) {
         const skipRecords = pageNro * pageSize;
-        // attr = col nombre, apellido, etc..
-        console.log('Filtrando por txt');
         return this.createQueryBuilder('pago')
-            .orderBy('pago.vencimiento', 'ASC')
+            .orderBy('pago.fecha_hora', 'ASC')
             .offset(skipRecords)
             .limit(pageSize)
             .getMany();
@@ -34,7 +32,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ type: 'timestamp', nullable: false }),
     __metadata("design:type", Date)
-], Pagos.prototype, "vencimiento", void 0);
+], Pagos.prototype, "fecha_hora", void 0);
 __decorate([
     typeorm_1.Column({ type: 'int', nullable: false }),
     __metadata("design:type", Number)

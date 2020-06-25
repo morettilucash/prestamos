@@ -54,8 +54,6 @@ export class PrestamosController {
         let id = parseInt(req.params.id);
         Prestamos.findOne({ id })
             .then(async (prestamo: Prestamos) => {
-                console.log('prestamo', prestamo);
-                console.log('req.body', req.body);
                 prestamo.monto = req.body.monto;
                 prestamo.fecha_hora = req.body.fecha_hora;
                 prestamo.vencimiento = req.body.vencimiento;

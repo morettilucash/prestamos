@@ -26,9 +26,9 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
   arrCuotas: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
   arrTasaInt: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 
-  // cliente: Clientes = null;
   evtSus: Subscription;
   @ViewChild('monto', { read: ElementRef }) monto: ElementRef;
+  @ViewChild('fijaCuo', { read: ElementRef }) fijaCuo: ElementRef;
 
   constructor(private _cliente: ClientesService, private _toast: ToastsService, private _prestamo: PrestamosService,
     private _router: Router) {
@@ -68,18 +68,22 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+
+    this.evtSus = fromEvent(this.fijaCuo.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(450),
+        distinctUntilChanged(),
+        tap(() => {
+          this.calcInteresesModif()
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
     this.evtSus.unsubscribe();
     this.cliSubs.unsubscribe();
   }
-
-  // redondeo: number;
-
-  // round() {
-  //   console.log(Math.ceil(this.redondeo / 100) * 100);
-  // }
 
   post() {
 
@@ -93,8 +97,6 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
       return this._toast.presentToast('Completa la tasa de interés.');
     if (this.prestamo.intereses == null || this.prestamo.intereses == undefined)
       return this._toast.presentToast('Completa los intereses.');
-
-    // this.prestamo.saldo = this.prestamo.monto + this.prestamo.intereses;
 
     this._prestamo.post(this.prestamo).subscribe(
       (data) => {
@@ -129,17 +131,16 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
     // Saldo: Monto del prestamo + los intereses
     this.prestamo.saldo = await this.saldo();
     // Cuotas que deberá pagar
-    // this.cuotas_de = await this.cuotasDe();
+    this.cuotas_de = await this.cuotasDe();
   }
 
   async calcInteresesModif() {
-    console.log('calcInteresesModif');
     // Cálculo de ganancia total(intereses) pero CUOTAS FIJADAS A MANO(para redondear montos):
     this.prestamo.intereses = await this.intereses(true);
-    // ganancia total
-    this.prestamo.saldo = await this.saldo();
     // Cálculo de ganancia por cada cuota de los intereses:
     this.int_x_cuota = await this.intPorCuota();
+    // ganancia total
+    this.prestamo.saldo = await this.saldo(true);
   }
 
   calcFcVenc() {
@@ -148,14 +149,12 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
     this.prestamo.vencimiento = this.fcVence;
   }
 
-
-  intereses(aMano?: boolean): Promise<number> {
+  intereses(manual?: boolean): Promise<number> {
     return new Promise((resolve, /*reject */) => {
       // Cálculo de ganancia total(intereses):
-      if (aMano) {
-        console.log('entra if intereses');
-        console.log('amano', aMano);
-        resolve(Math.round(this.cuotas_de * this.prestamo.cantidad_cuotas));
+      if (manual) {
+        // si fija las cuotas manualmente realizamos el siguiente cálculo
+        resolve(Math.round(this.cuotas_de * this.prestamo.cantidad_cuotas - this.prestamo.monto));
       } else {
         let ti: number = this.prestamo.tasa_interes / 100;
         resolve(Math.round(this.prestamo.monto * ti * this.prestamo.cantidad_cuotas));
@@ -163,10 +162,15 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
     });
   }
 
-  saldo(): Promise<number> {
+  saldo(manual?: boolean): Promise<number> {
     return new Promise((resolve, /*reject */) => {
       // Saldo: Monto del prestamo + los intereses
-      resolve(Math.round(this.prestamo.monto + this.prestamo.intereses));
+      if (manual) {
+        // si fija las cuotas manualmente realizamos el siguiente cálculo
+        resolve(Math.round(this.cuotas_de * this.prestamo.cantidad_cuotas));
+      } else {
+        resolve(Math.round(this.prestamo.monto + this.prestamo.intereses));
+      }
     });
   }
 

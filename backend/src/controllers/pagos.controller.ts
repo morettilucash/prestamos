@@ -9,7 +9,7 @@ export class PagosController {
 
     public async getPagos(req: Request, res: Response) {
         await Pagos.find({
-            order: { vencimiento: "ASC" }
+            order: { fecha_hora: "ASC" }
         })
             .then(pago => { res.json(pago) })
             .catch(err => { res.json(err.message); })
@@ -18,8 +18,7 @@ export class PagosController {
     public async getPago(req: Request, res: Response) {
         let id = parseInt(req.params.id);
         await Pagos.findOne(
-            { id },
-            { relations: ['comercios'] }
+            { id }
         )
             .then(pago => { res.json(pago) })
             .catch(err => { res.json(err.message); })
@@ -29,7 +28,7 @@ export class PagosController {
         let pago: Pagos = new Pagos();
 
         pago.monto = req.body.monto;
-        pago.vencimiento = req.body.vencimiento;
+        pago.fecha_hora = req.body.fecha_hora;
         pago.nro_cuota = req.body.nro_cuota;
         pago.prestamoId = req.body.prestamoId;
 
@@ -46,10 +45,8 @@ export class PagosController {
 
         Pagos.findOne({ id })
             .then(async (pago: Pagos) => {
-                console.log('pago', pago);
-                console.log('req.body', req.body);
                 pago.monto = req.body.monto;
-                pago.vencimiento = req.body.vencimiento;
+                pago.fecha_hora = req.body.fecha_hora;
                 pago.nro_cuota = req.body.nro_cuota;
                 pago.prestamoId = req.body.prestamoId;
 

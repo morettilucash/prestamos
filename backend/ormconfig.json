@@ -1,10 +1,10 @@
 {
     "type": "postgres",
-    "host": "localhost",
+    "host": "ec2-3-216-129-140.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "postgres",
-    "password": "root",
-    "database": "prestamos",
+    "username": "oaianlglznfgol",
+    "password": "5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729",
+    "database": "d96lftkd1nla9s",
     "entities": [
         "dist/src/Entities/**/*{.ts,.js}"
     ],

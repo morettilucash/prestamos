@@ -24,7 +24,7 @@ export class PrestamosService {
   private prestamos: Prestamos[] = null;
 
 
-  user: Prestamos;
+  prestamo: Prestamos;
   prestamoSubject = new Subject<Prestamos>();
 
   constructor(
@@ -74,16 +74,16 @@ export class PrestamosService {
       );
   }
 
-  public update(user: Prestamos): Observable<Prestamos> {
-    return this.http.put<Prestamos>(`${this.UrlRest}/${user.id}`, user, this.httpOptions)
+  public update(prestamo: Prestamos): Observable<Prestamos> {
+    return this.http.put<Prestamos>(`${this.UrlRest}/${prestamo.id}`, prestamo, this.httpOptions)
       .pipe(
         map(res => { return <Prestamos>res }),
         catchError(this.he.handleError)
       );
   }
 
-  public post(user: Prestamos): Observable<Prestamos> {
-    return this.http.post<Prestamos>(`${this.UrlRestS}`, user, this.httpOptions)
+  public post(prestamo: Prestamos): Observable<Prestamos> {
+    return this.http.post<Prestamos>(`${this.UrlRestS}`, prestamo, this.httpOptions)
       .pipe(
         map(res => { return <Prestamos>res }),
         catchError(this.he.handleError)

@@ -46,10 +46,8 @@ export class ClientesController {
 
     public async createCliente(req: Request, res: Response) {
         let cliente: Clientes = new Clientes();
-        let email = req.body.email;
         let telefono = req.body.telefono;
 
-        cliente.email = email;
         cliente.telefono = telefono;
         cliente.nombre = req.body.nombre;
         cliente.apellido = req.body.apellido;
@@ -57,22 +55,6 @@ export class ClientesController {
         cliente.localidad = req.body.localidad;
         cliente.created_at = new Date();
         cliente.updated_at = new Date();
-
-
-        await new Promise((resolve, reject) => {
-            Clientes.findOne({ email })
-                .then(u => {
-                    if (u) {
-                        res.json('El email ya se encuentra registrado.');
-                    } else {
-                        resolve();
-                    }
-                })
-                .catch(err => {
-                    res.json(err.message);
-                    reject()
-                });
-        });
 
         await new Promise((resolve, reject) => {
             Clientes.findOne({ telefono })
@@ -99,7 +81,6 @@ export class ClientesController {
 
     public async updateCliente(req: Request, res: Response) {
         let id = parseInt(req.params.id);
-        let email = req.body.email;
         let telefono = req.body.telefono;
 
         Clientes.findOne({ id })
@@ -110,24 +91,6 @@ export class ClientesController {
                 cliente.domicilio = req.body.domicilio;
                 cliente.localidad = req.body.localidad;
                 cliente.updated_at =  new Date();
-
-                if (cliente.email !== email) {
-                    await new Promise((resolve, reject) => {
-                        Clientes.findOne({ email })
-                            .then(u => {
-                                if (u) {
-                                    res.json('El email ya se encuentra registrado.');
-                                } else {
-                                    cliente.email = email;
-                                    resolve();
-                                }
-                            })
-                            .catch(err => {
-                                res.json(err.message);
-                                reject();
-                            });
-                    });
-                }
 
                 if (cliente.telefono !== telefono) {
                     await new Promise((resolve, reject) => {

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>clientes</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row  class="ion-align-items-center">
+    <ion-row >
       <ion-col size="6">
         <ion-item>
           <ion-label position="floating">Filtrar por..</ion-label>
@@ -31,9 +31,7 @@
         </ion-item>
       </ion-col>
       <ion-col size="6">
-        <div>
           <app-paginacion (changePage)="pageChanged($event)"> </app-paginacion>
-        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

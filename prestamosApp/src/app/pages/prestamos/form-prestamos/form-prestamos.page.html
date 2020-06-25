@@ -59,14 +59,14 @@
       <ion-col size="4">
         <ion-item>
           <ion-label position="floating">Intereses</ion-label>
-          <ion-input type="number" required [(ngModel)]="prestamo.intereses"></ion-input>
+          <ion-input type="number" required [(ngModel)]="prestamo.intereses" disabled></ion-input>
         </ion-item>
       </ion-col>
 
       <ion-col size="4">
         <ion-item>
           <ion-label position="floating">x Cuota</ion-label>
-          <ion-input required [(ngModel)]="int_x_cuota"></ion-input>
+          <ion-input required [(ngModel)]="int_x_cuota" disabled></ion-input>
         </ion-item>
       </ion-col>
 
@@ -113,7 +113,7 @@
       <ion-col size="6">
         <ion-item>
           <ion-label position="floating">Fijar cuotas de:</ion-label>
-          <ion-input [(ngModel)]="cuotas_de" (ionChange)="calcInteresesModif()"></ion-input>
+          <ion-input #fijaCuo [(ngModel)]="cuotas_de"></ion-input>
         </ion-item>
       </ion-col>
 
@@ -128,7 +128,7 @@
       </ion-col>
 
       <ion-col size="12">
-        <ion-button (click)="post()" expand="block" fill="outline" color="success">Confirmar</ion-button>
+        <ion-button (click)="post()" expand="block" color="success">Confirmar</ion-button>
       </ion-col>
 
     </ion-row>

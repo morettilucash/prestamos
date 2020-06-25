@@ -60,8 +60,6 @@ class PrestamosController {
             let id = parseInt(req.params.id);
             prestamos_1.Prestamos.findOne({ id })
                 .then((prestamo) => __awaiter(this, void 0, void 0, function* () {
-                console.log('prestamo', prestamo);
-                console.log('req.body', req.body);
                 prestamo.monto = req.body.monto;
                 prestamo.fecha_hora = req.body.fecha_hora;
                 prestamo.vencimiento = req.body.vencimiento;

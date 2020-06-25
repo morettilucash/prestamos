@@ -59,9 +59,7 @@ class ClientesController {
     createCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let cliente = new clientes_1.Clientes();
-            let email = req.body.email;
             let telefono = req.body.telefono;
-            cliente.email = email;
             cliente.telefono = telefono;
             cliente.nombre = req.body.nombre;
             cliente.apellido = req.body.apellido;
@@ -69,21 +67,6 @@ class ClientesController {
             cliente.localidad = req.body.localidad;
             cliente.created_at = new Date();
             cliente.updated_at = new Date();
-            yield new Promise((resolve, reject) => {
-                clientes_1.Clientes.findOne({ email })
-                    .then(u => {
-                    if (u) {
-                        res.json('El email ya se encuentra registrado.');
-                    }
-                    else {
-                        resolve();
-                    }
-                })
-                    .catch(err => {
-                    res.json(err.message);
-                    reject();
-                });
-            });
             yield new Promise((resolve, reject) => {
                 clientes_1.Clientes.findOne({ telefono })
                     .then(u => {
@@ -111,7 +94,6 @@ class ClientesController {
     updateCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let id = parseInt(req.params.id);
-            let email = req.body.email;
             let telefono = req.body.telefono;
             clientes_1.Clientes.findOne({ id })
                 .then((cliente) => __awaiter(this, void 0, void 0, function* () {
@@ -121,24 +103,6 @@ class ClientesController {
                 cliente.domicilio = req.body.domicilio;
                 cliente.localidad = req.body.localidad;
                 cliente.updated_at = new Date();
-                if (cliente.email !== email) {
-                    yield new Promise((resolve, reject) => {
-                        clientes_1.Clientes.findOne({ email })
-                            .then(u => {
-                            if (u) {
-                                res.json('El email ya se encuentra registrado.');
-                            }
-                            else {
-                                cliente.email = email;
-                                resolve();
-                            }
-                        })
-                            .catch(err => {
-                            res.json(err.message);
-                            reject();
-                        });
-                    });
-                }
                 if (cliente.telefono !== telefono) {
                     yield new Promise((resolve, reject) => {
                         clientes_1.Clientes.findOne({ telefono })

@@ -12,7 +12,7 @@ export class Pagos extends BaseEntity {
     monto: number;
 
     @Column({ type: 'timestamp', nullable: false })
-    vencimiento: Date;
+    fecha_hora: Date;
 
     @Column({ type: 'int', nullable: false })
     nro_cuota: number;
@@ -22,10 +22,8 @@ export class Pagos extends BaseEntity {
 
     static findPaginated(pageNro: number, pageSize: number) {
         const skipRecords = pageNro * pageSize;
-        // attr = col nombre, apellido, etc..
-        console.log('Filtrando por txt');
         return this.createQueryBuilder('pago')
-            .orderBy('pago.vencimiento', 'ASC')
+            .orderBy('pago.fecha_hora', 'ASC')
             .offset(skipRecords)
             .limit(pageSize)
             .getMany();

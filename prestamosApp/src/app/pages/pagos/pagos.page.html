@@ -22,7 +22,9 @@
 
   <ion-list>
     <ion-item *ngFor="let p of pagos$ | async">
-      <ion-label> {{ p.monto | currency }} - Venc.: {{ p.vencimiento }}  </ion-label>
+      <ion-label>
+        {{ p.monto | currency : 'ARS' : 'symbol': '1.0-0' }} - Fecha: {{ p.fecha_hora | date: 'yyyy-MM-dd'}}
+      </ion-label>
     </ion-item>
   </ion-list>
 

@@ -53,7 +53,6 @@ export class PagosService {
 
   //  ====================================================================================
   public getAll() {
-    console.log('Endpoint.UrlRest SERVICE', this.UrlRest);
     return this.http.get<Pagos[]>(`${this.UrlRestS}`, this.httpOptions)
       .pipe(
         map(res => { return <Pagos[]>res }),
@@ -69,16 +68,16 @@ export class PagosService {
       );
   }
 
-  public update(user: Pagos): Observable<Pagos> {
-    return this.http.put<Pagos>(`${this.UrlRest}/${user.id}`, user, this.httpOptions)
+  public update(pago: Pagos): Observable<Pagos> {
+    return this.http.put<Pagos>(`${this.UrlRest}/${pago.id}`, pago, this.httpOptions)
       .pipe(
         map(res => { return <Pagos>res }),
         catchError(this.he.handleError)
       );
   }
 
-  public post(user: Pagos): Observable<Pagos> {
-    return this.http.post<Pagos>(`${this.UrlRestS}`, user, this.httpOptions)
+  public post(pago: Pagos): Observable<Pagos> {
+    return this.http.post<Pagos>(`${this.UrlRestS}`, pago, this.httpOptions)
       .pipe(
         map(res => { return <Pagos>res }),
         catchError(this.he.handleError)

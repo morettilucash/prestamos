@@ -30,6 +30,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Pagos.prototype, "monto", void 0);
 __decorate([
+    typeorm_1.Column({ type: 'real', nullable: false }),
+    __metadata("design:type", Number)
+], Pagos.prototype, "ganancia", void 0);
+__decorate([
     typeorm_1.Column({ type: 'timestamp', nullable: false }),
     __metadata("design:type", Date)
 ], Pagos.prototype, "fecha_hora", void 0);

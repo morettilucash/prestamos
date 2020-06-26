@@ -4,6 +4,7 @@ export class Pagos {
 
     id?: number;
     monto?: number;
+    ganancia?: number;
     fecha_hora?: Date;
     nro_cuota?: number;
     // prestamoId?: Prestamos;

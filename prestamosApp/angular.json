@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "defaultProject": "app",
+  "defaultProject": "prestamosapp",
   "newProjectRoot": "projects",
   "projects": {
-    "app": {
+    "prestamosapp": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -74,11 +74,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "prestamosapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "prestamosapp:build:production"
             },
             "ci": {
               "progress": false
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "prestamosapp:build"
           }
         },
         "test": {
@@ -135,38 +135,38 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app:serve"
+            "devServerTarget": "prestamosapp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app:serve:production"
+              "devServerTarget": "prestamosapp:serve:production"
             },
             "ci": {
-              "devServerTarget": "app:serve:ci"
+              "devServerTarget": "prestamosapp:serve:ci"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "prestamosapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "prestamosapp:build:production"
             }
           }
         },
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "app:ionic-cordova-build",
-            "devServerTarget": "app:serve"
+            "cordovaBuildTarget": "prestamosapp:ionic-cordova-build",
+            "devServerTarget": "prestamosapp:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
+              "cordovaBuildTarget": "prestamosapp:ionic-cordova-build:production",
+              "devServerTarget": "prestamosapp:serve:production"
             }
           }
         }

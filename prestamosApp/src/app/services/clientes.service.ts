@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Endpoint } from '../endpoint';
 import { Observable, Subject } from 'rxjs';
-import { Clientes } from '../models/Clientes';
+import { Clientes } from '../models/clientes';
 import { Router } from '@angular/router';
 import { HttpOptions } from './globales/httpOptions';
 import { map, catchError, flatMap, filter } from 'rxjs/operators';

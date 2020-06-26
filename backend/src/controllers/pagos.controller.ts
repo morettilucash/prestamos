@@ -30,6 +30,7 @@ export class PagosController {
         pago.monto = req.body.monto;
         pago.fecha_hora = req.body.fecha_hora;
         pago.nro_cuota = req.body.nro_cuota;
+        pago.ganancia = req.body.ganancia;
         pago.prestamoId = req.body.prestamoId;
 
         pago.save()
@@ -48,6 +49,7 @@ export class PagosController {
                 pago.monto = req.body.monto;
                 pago.fecha_hora = req.body.fecha_hora;
                 pago.nro_cuota = req.body.nro_cuota;
+                pago.ganancia = req.body.ganancia;
                 pago.prestamoId = req.body.prestamoId;
 
 

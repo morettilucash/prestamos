@@ -11,6 +11,9 @@ export class Pagos extends BaseEntity {
     @Column({ type: 'real', nullable: false })
     monto: number;
 
+    @Column({ type: 'real', nullable: false })
+    ganancia: number;
+
     @Column({ type: 'timestamp', nullable: false })
     fecha_hora: Date;
 

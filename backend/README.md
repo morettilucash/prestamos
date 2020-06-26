@@ -6,7 +6,7 @@ Instalar Nodemon Global
 # Migracion de tablas: 
 ## Generar Script SQL:
 
-> Windows: 
+Windows: 
 > ts-node node_modules\typeorm\cli.js migration:generate -n NombreMigracion
 
 > Linux:

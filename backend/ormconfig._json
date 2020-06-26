@@ -1,24 +1,21 @@
 Host
-ec2-3-216-129-140.compute-1.amazonaws.com
+ec2-35-172-73-125.compute-1.amazonaws.com
 Database
-d96lftkd1nla9s
+deotfgmmc12ou2
 User
-oaianlglznfgol
+fvkhcqiawlanni
 Port
 5432
 Password
-5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729
-URI
-postgres://oaianlglznfgol:5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729@ec2-3-216-129-140.compute-1.amazonaws.com:5432/d96lftkd1nla9s
-
+f7f58d23fd5c35e34ecde1657a8fd9ddcb7b8d29295df7d6bfb458d059fdc456
 
 {
     "type": "postgres",
-    "host": "ec2-3-216-129-140.compute-1.amazonaws.com",
+    "host": "ec2-35-172-73-125.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "oaianlglznfgol",
-    "password": "5de005a42ce7cee82f7258f439624f8bf828892bdc1c335a6700a3e551fba729",
-    "database": "d96lftkd1nla9s",
+    "username": "fvkhcqiawlanni",
+    "password": "f7f58d23fd5c35e34ecde1657a8fd9ddcb7b8d29295df7d6bfb458d059fdc456",
+    "database": "deotfgmmc12ou2",
     "entities": [
         "dist/src/Entities/**/*{.ts,.js}"
     ],

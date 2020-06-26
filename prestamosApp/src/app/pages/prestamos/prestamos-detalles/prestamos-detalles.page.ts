@@ -46,9 +46,12 @@ export class PrestamosDetallesPage implements OnInit {
     this._router.navigate(['prestamos']);
   }
 
-  savePago() {
+  async savePago() {
     const pago: Pagos = new Pagos();
     pago.monto = this.monto;
+    pago.ganancia = await this.calcGananciaCuota();
+    console.log('ganancia cuota', pago.ganancia);
+
     pago.nro_cuota = this.prestamo.cuotas_pagadas + 1;
     pago.fecha_hora = this.fcHoy;
     pago.prestamoId = this.prestamoId;
@@ -116,6 +119,21 @@ export class PrestamosDetallesPage implements OnInit {
         resolve(this.prestamo.saldo - this.monto);
       else if (tipo === 'D')
         resolve(this.prestamo.saldo + this.monto);
+    });
+  }
+
+  async calcGananciaCuota(): Promise<number> {
+    return new Promise<number>((resolve/*, reject */) => {
+      // t = total a pagar del prestamo
+      let t = this.prestamo.monto + this.prestamo.intereses;
+      // x = total prestamo / monto de la cuota
+      let x = t / this.monto;
+      // z = monto de la cuota / x
+      let z = this.prestamo.monto / x;
+      // ganancia = monto cuota - z
+      let gan = this.monto - z;
+
+      resolve(gan);
     });
   }
 

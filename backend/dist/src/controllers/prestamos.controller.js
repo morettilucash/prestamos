@@ -35,6 +35,7 @@ class PrestamosController {
         return __awaiter(this, void 0, void 0, function* () {
             let prestamo = new prestamos_1.Prestamos();
             prestamo.monto = req.body.monto;
+            prestamo.valor_cuota = req.body.valor_cuota;
             prestamo.fecha_hora = req.body.fecha_hora;
             prestamo.vencimiento = req.body.vencimiento;
             prestamo.tasa_interes = req.body.tasa_interes;
@@ -61,6 +62,7 @@ class PrestamosController {
             prestamos_1.Prestamos.findOne({ id })
                 .then((prestamo) => __awaiter(this, void 0, void 0, function* () {
                 prestamo.monto = req.body.monto;
+                prestamo.valor_cuota = req.body.valor_cuota;
                 prestamo.fecha_hora = req.body.fecha_hora;
                 prestamo.vencimiento = req.body.vencimiento;
                 prestamo.tasa_interes = req.body.tasa_interes;

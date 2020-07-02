@@ -32,8 +32,10 @@ class PagosController {
     }
     createPago(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let pago = new pagos_1.Pagos();
+            const pago = new pagos_1.Pagos();
             pago.monto = req.body.monto;
+            pago.interes = req.body.interes;
+            pago.tasa_interes = req.body.tasa_interes;
             pago.fecha_hora = req.body.fecha_hora;
             pago.nro_cuota = req.body.nro_cuota;
             pago.ganancia = req.body.ganancia;
@@ -53,6 +55,8 @@ class PagosController {
             pagos_1.Pagos.findOne({ id })
                 .then((pago) => __awaiter(this, void 0, void 0, function* () {
                 pago.monto = req.body.monto;
+                pago.interes = req.body.interes;
+                pago.tasa_interes = req.body.tasa_interes;
                 pago.fecha_hora = req.body.fecha_hora;
                 pago.nro_cuota = req.body.nro_cuota;
                 pago.ganancia = req.body.ganancia;

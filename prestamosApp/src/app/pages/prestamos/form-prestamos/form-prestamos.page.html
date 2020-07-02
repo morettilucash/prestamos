@@ -38,10 +38,11 @@
 
       <ion-col size="6">
         <ion-item>
-          <ion-label position="floating">Cant. cuotas</ion-label>
-          <ion-select interface="popover" [(ngModel)]="prestamo.cantidad_cuotas"
-            (ionChange)="calcIntereses();calcFcVenc()">
-            <ion-select-option *ngFor="let c of arrCuotas" [value]="c"> {{ c }}</ion-select-option>
+          <ion-label position="floating">Tipo pago</ion-label>
+          <ion-select interface="popover" placeholder="Selecccionar" [(ngModel)]="prestamo.tipo_pago"
+            (ionChange)="calcularCuotas()">
+            <ion-select-option value="Mensual">Mensual</ion-select-option>
+            <ion-select-option value="Quincenal">Quincenal</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -72,15 +73,21 @@
 
       <ion-col size="6">
         <ion-item>
-          <ion-label position="floating">Tipo pago</ion-label>
-          <ion-select interface="popover" placeholder="Selecccionar" [(ngModel)]="prestamo.tipo_pago">
-            <ion-select-option value="Mensual">Mensual</ion-select-option>
-            <ion-select-option value="Quincenal">Quincenal</ion-select-option>
+          <ion-label position="floating">Cant. cuotas</ion-label>
+          <ion-select interface="popover" [(ngModel)]="prestamo.cantidad_cuotas"
+            (ionChange)="calcIntereses();calcFcVenc()">
+            <ion-select-option *ngFor="let c of arrCuotas" [value]="c"> {{ c }}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
 
       <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Fijar cuotas de:</ion-label>
+          <ion-input #fijaCuo [(ngModel)]="cuotas_de"></ion-input>
+        </ion-item>
+      </ion-col>
+      <!-- <ion-col size="6">
         <ion-item>
           <ion-label position="floating">Estado</ion-label>
           <ion-select interface="popover" placeholder="Selecccionar" [(ngModel)]="prestamo.estado">
@@ -89,7 +96,7 @@
             <ion-select-option value="Deuda">Deuda</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-col>
+      </ion-col> -->
 
       <ion-col size="6">
         <ion-item>
@@ -110,12 +117,6 @@
       <ion-col size="6">
       </ion-col>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label position="floating">Fijar cuotas de:</ion-label>
-          <ion-input #fijaCuo [(ngModel)]="cuotas_de"></ion-input>
-        </ion-item>
-      </ion-col>
 
       <ion-col size="12">
         <ion-item color="dark">

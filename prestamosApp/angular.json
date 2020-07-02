@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "defaultProject": "prestamosapp",
+  "defaultProject": "app",
   "newProjectRoot": "projects",
   "projects": {
-    "prestamosapp": {
+    "app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -19,8 +19,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
+            "assets": [{
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
@@ -31,8 +30,7 @@
                 "output": "./svg"
               }
             ],
-            "styles": [
-              {
+            "styles": [{
                 "input": "src/theme/variables.scss"
               },
               {
@@ -43,12 +41,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -58,13 +54,11 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
+              "budgets": [{
+                "type": "initial",
+                "maximumWarning": "2mb",
+                "maximumError": "5mb"
+              }]
             },
             "ci": {
               "progress": false
@@ -74,11 +68,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "prestamosapp:build"
+            "browserTarget": "app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "prestamosapp:build:production"
+              "browserTarget": "app:build:production"
             },
             "ci": {
               "progress": false
@@ -88,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "prestamosapp:build"
+            "browserTarget": "app:build"
           }
         },
         "test": {
@@ -100,8 +94,7 @@
             "karmaConfig": "karma.conf.js",
             "styles": [],
             "scripts": [],
-            "assets": [
-              {
+            "assets": [{
                 "glob": "favicon.ico",
                 "input": "src/",
                 "output": "/"
@@ -135,38 +128,38 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "prestamosapp:serve"
+            "devServerTarget": "app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "prestamosapp:serve:production"
+              "devServerTarget": "app:serve:production"
             },
             "ci": {
-              "devServerTarget": "prestamosapp:serve:ci"
+              "devServerTarget": "app:serve:ci"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "prestamosapp:build"
+            "browserTarget": "app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "prestamosapp:build:production"
+              "browserTarget": "app:build:production"
             }
           }
         },
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "prestamosapp:ionic-cordova-build",
-            "devServerTarget": "prestamosapp:serve"
+            "cordovaBuildTarget": "app:ionic-cordova-build",
+            "devServerTarget": "app:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "prestamosapp:ionic-cordova-build:production",
-              "devServerTarget": "prestamosapp:serve:production"
+              "cordovaBuildTarget": "app:ionic-cordova-build:production",
+              "devServerTarget": "app:serve:production"
             }
           }
         }

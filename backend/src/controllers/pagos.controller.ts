@@ -25,9 +25,10 @@ export class PagosController {
     }
 
     public async createPago(req: Request, res: Response) {
-        let pago: Pagos = new Pagos();
-
+        const pago: Pagos = new Pagos();
         pago.monto = req.body.monto;
+        pago.interes = req.body.interes;
+        pago.tasa_interes = req.body.tasa_interes;
         pago.fecha_hora = req.body.fecha_hora;
         pago.nro_cuota = req.body.nro_cuota;
         pago.ganancia = req.body.ganancia;
@@ -47,6 +48,8 @@ export class PagosController {
         Pagos.findOne({ id })
             .then(async (pago: Pagos) => {
                 pago.monto = req.body.monto;
+                pago.interes = req.body.interes;
+                pago.tasa_interes = req.body.tasa_interes;
                 pago.fecha_hora = req.body.fecha_hora;
                 pago.nro_cuota = req.body.nro_cuota;
                 pago.ganancia = req.body.ganancia;

@@ -98,6 +98,8 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
     if (this.prestamo.intereses == null || this.prestamo.intereses == undefined)
       return this._toast.presentToast('Completa los intereses.');
 
+    this.prestamo.valor_cuota = this.prestamo.saldo / this.prestamo.cantidad_cuotas;
+
     this._prestamo.post(this.prestamo).subscribe(
       (data) => {
         console.log('Prestamo cargado con éxito');
@@ -188,4 +190,11 @@ export class FormPrestamosPage implements OnInit, OnDestroy {
     });
   }
 
+  calcularCuotas() {
+    if (this.prestamo.tipo_pago === 'Mensual')
+      this.prestamo.cantidad_cuotas = this.prestamo.cantidad_cuotas / 2;
+    else
+      this.prestamo.cantidad_cuotas = this.prestamo.cantidad_cuotas * 2;
+
+  }
 }

@@ -7,7 +7,8 @@ export class Pagos {
     ganancia?: number;
     fecha_hora?: Date;
     nro_cuota?: number;
-    // prestamoId?: Prestamos;
+    interes?: boolean;
+    tasa_interes?:number
     prestamoId?: number;
 
 }

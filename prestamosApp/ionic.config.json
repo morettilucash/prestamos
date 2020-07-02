@@ -1,5 +1,5 @@
 {
-  "name": "prestamosApp",
+  "name": "prestamosapp",
   "integrations": {
     "capacitor": {},
     "cordova": {}

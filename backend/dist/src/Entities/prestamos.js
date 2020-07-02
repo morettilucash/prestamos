@@ -49,6 +49,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Prestamos.prototype, "monto", void 0);
 __decorate([
+    typeorm_1.Column({ type: 'real', nullable: false }),
+    __metadata("design:type", Number)
+], Prestamos.prototype, "valor_cuota", void 0);
+__decorate([
     typeorm_1.Column({ type: 'timestamp', nullable: true }),
     __metadata("design:type", Date)
 ], Prestamos.prototype, "fecha_hora", void 0);

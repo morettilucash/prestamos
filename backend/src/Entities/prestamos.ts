@@ -11,7 +11,10 @@ export class Prestamos extends BaseEntity {
 
     @Column({ type: 'real', nullable: false })
     monto: number;
-
+    
+    @Column({ type: 'real', nullable: false })
+    valor_cuota: number;
+    
     @Column({ type: 'timestamp', nullable: true })
     fecha_hora: Date;
 

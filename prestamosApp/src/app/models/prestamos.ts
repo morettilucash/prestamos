@@ -5,6 +5,7 @@ export class Prestamos {
 
     id?: number;
     monto?: number;
+    valor_cuota?: number;
     fecha_hora?: Date;
     vencimiento?: Date;
     tasa_interes?: number;

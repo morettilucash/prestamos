@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "prestamosApp",
+  "appName": "prestamosapp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

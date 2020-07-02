@@ -1,4 +1,28 @@
 p {
     font-size: large;
     color: black;
+    margin-top: 7px;
+}
+
+ion-item,
+ion-label,
+h2 {
+    text-align: center;
+}
+
+ion-list {
+    margin-top: 9px;
+}
+
+ion-content {
+    --background: rgb(228, 228, 228) !important;
+}
+
+h2 {
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+
+.price {
+    font-size: large;
 }

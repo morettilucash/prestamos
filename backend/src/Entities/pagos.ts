@@ -14,6 +14,12 @@ export class Pagos extends BaseEntity {
     @Column({ type: 'real', nullable: false })
     ganancia: number;
 
+    @Column({ type: 'boolean', nullable: false })
+    interes: boolean;
+
+    @Column({ type: 'int', nullable: true })
+    tasa_interes: number;
+
     @Column({ type: 'timestamp', nullable: false })
     fecha_hora: Date;
 

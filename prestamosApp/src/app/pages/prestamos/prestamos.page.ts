@@ -120,6 +120,8 @@ export class PrestamosPage implements OnInit, AfterContentInit {
         else
           this._prestamos.delete(p.id).toPromise()
             .then((data: any) => {
+              console.log('data',data);
+              
               this._toast.successToast('Eliminado con éxito');
               this.getPag();
             })

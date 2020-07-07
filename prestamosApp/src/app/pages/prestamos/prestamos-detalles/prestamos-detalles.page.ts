@@ -104,6 +104,10 @@ export class PrestamosDetallesPage implements OnInit {
           this.prestamo.saldo = 0;
         }
 
+        if (tipo === 'P' && this.prestamo.saldo < 0) {
+          this.prestamo.saldo = 0;
+        }
+
         if (this.prestamo.saldo === 0) {
           this.prestamo.estado = 'Saldado';
 
@@ -148,8 +152,10 @@ export class PrestamosDetallesPage implements OnInit {
         resolve(this.prestamo.saldo - this.montoCuota);
 
       else if (tipo === 'D')
-        // resolve(this.prestamo.saldo + this.montoCuota);
-        resolve(this.prestamo.saldo + this.montoCuota);
+        if (this.pagoConInteres) // si el pago fue con intereses, restamos el monto del pago 
+          resolve(this.prestamo.saldo + this.montoCuota);
+        else // sino, el valor calculado de cada cuota
+          resolve(this.prestamo.saldo + this.prestamo.valor_cuota);
     });
   }
 
@@ -214,9 +220,7 @@ export class PrestamosDetallesPage implements OnInit {
     alert.present();
     alert.onDidDismiss()
       .then(((res) => {
-        if (res.role === "cancel")
-          return;
-        else if (res.role === "backdrop") // hace click fuera del modal
+        if (res.role === "cancel" || res.role === "backdrop")  // backdrop = hace click fuera del modal
           return;
         else {
           // Como se va a eliminar, necesitamos pasarle el monto al input del pago, 

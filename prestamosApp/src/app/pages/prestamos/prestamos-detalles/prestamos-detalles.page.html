@@ -85,7 +85,8 @@
      <ion-row>
        <ion-col size="12">
          <ion-card>
-           <ion-item color="tertiary" outline="true" *ngFor="let pa of p.pagos">
+           <ion-item [ngClass]="{'danger':pa.interes, 'tertiary':!pa.interes}" outline="true"
+             *ngFor="let pa of p.pagos">
              <ion-label>
                # {{ pa.nro_cuota }} - {{ pa.monto | currency : 'ARS' : 'symbol': '1.0-0'  }} -
                {{ pa.fecha_hora | date: 'yyyy-MM-dd' }}

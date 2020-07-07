@@ -5,6 +5,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { Router } from '@angular/router';
 import { PaginacionService } from 'src/app/services/globales/paginacion/paginacion.service';
 import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ToastsService } from 'src/app/services/toasts.service';
 
 @Component({
   selector: 'app-clientes',
@@ -23,7 +24,7 @@ export class ClientesPage implements OnInit, AfterViewInit {
 
   @ViewChild('input', { read: ElementRef }) input: ElementRef;
 
-  constructor(private _clientes: ClientesService, private _router: Router, private _pag: PaginacionService) { }
+  constructor(private _clientes: ClientesService, private _router: Router, private _pag: PaginacionService, private _toast: ToastsService) { }
 
   ngOnInit() {
     this.refSus = this._clientes.obsRefresh().subscribe(
@@ -96,10 +97,31 @@ export class ClientesPage implements OnInit, AfterViewInit {
     this._router.navigate(['prestamos/cliente/', clienteId])
   }
 
-  delete(id: number) {
-    this._clientes.delete(id).toPromise()
-      .then(() => { this.getAll() })
-      .catch(err => { console.log(err) })
+  async delete(id: number) {
+
+    const tit: string = '¡Eliminar cliente!';
+    const msg: string = '¿Estás seguro?';
+    let alert = await this._toast.deleteToast(tit, msg)
+
+    alert.present();
+    alert.onDidDismiss()
+      .then(((res) => {
+        if (res.role === "cancel")
+          return;
+        else if (res.role === "backdrop") // hace click fuera del modal
+          return;
+        else
+          this._clientes.delete(id).toPromise()
+            .then((data: any) => {
+              this._toast.successToast('Eliminado con éxito')
+              console.log(data);
+              this.getPag()
+            })
+            .catch(err => {
+              console.log(err);
+              this._toast.errorToast(err)
+            })
+      }));
   }
 
   newPrestamo(c: Clientes) {

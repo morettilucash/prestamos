@@ -2,6 +2,7 @@ p {
     font-size: large;
     color: black;
     margin-top: 7px;
+    text-align: center;
 }
 
 ion-item,
@@ -10,19 +11,22 @@ h2 {
     text-align: center;
 }
 
-ion-list {
-    margin-top: 9px;
-}
 
 ion-content {
-    --background: rgb(228, 228, 228) !important;
+    --background: rgb(235, 235, 235) !important;
 }
 
 h2 {
     margin-top: 5px;
     margin-bottom: -5px;
+    color: rgb(126, 122, 122);
 }
 
 .price {
     font-size: large;
+}
+
+hr {
+    background: #b9b9b9;
+    height: 0.5px;
 }

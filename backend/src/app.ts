@@ -17,8 +17,11 @@ import * as http from 'http';
 
 // Routes
 import { ClientesRouter } from './routes/clientes.routes';
+import { UsuariosRouter } from './routes/usuarios.routes';
 import { PrestamosRouter } from './routes/prestamos.routes';
 import { PagosRouter } from './routes/pagos.routes';
+import { LoginRoutes } from './routes/login.routes';
+import { EstadisticasRouter } from './routes/estadisticas.routes';
 
 class App {
 
@@ -28,8 +31,11 @@ class App {
     public server: http.Server;
 
     public routeClientes: ClientesRouter = new ClientesRouter();
+    public routeUsuarios: UsuariosRouter = new UsuariosRouter();
     public routePrestamos: PrestamosRouter = new PrestamosRouter();
     public routePagos: PagosRouter = new PagosRouter();
+    public routeLogin: LoginRoutes = new LoginRoutes();
+    public routeEst: EstadisticasRouter = new EstadisticasRouter();
 
 
     constructor() {
@@ -49,6 +55,9 @@ class App {
         this.routeClientes.routes(this.app);
         this.routePagos.routes(this.app);
         this.routePrestamos.routes(this.app);
+        this.routeLogin.routes(this.app);
+        this.routeUsuarios.routes(this.app);
+        this.routeEst.routes(this.app);
     }
 
     private config(): void {

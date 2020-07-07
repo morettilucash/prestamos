@@ -28,7 +28,7 @@ export class PrestamosDetallesPage implements OnInit {
   arrTasaInt: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
   habilitarAplicaInteres: boolean = false;
   interesAplicado: number = 10;
-  ganancia: number = 0;
+  ganancia: number = null;
 
 
   constructor(private _prestamos: PrestamosService, private _router: Router, private _actRoute: ActivatedRoute,
@@ -57,6 +57,8 @@ export class PrestamosDetallesPage implements OnInit {
     const pago: Pagos = new Pagos();
     if (this.habilitarAplicaInteres)
       pago.interes = true;
+    else
+      pago.interes = false;
     pago.monto = this.montoCuota;
     pago.tasa_interes = this.interesAplicado;
     pago.ganancia = this.ganancia;
@@ -91,17 +93,14 @@ export class PrestamosDetallesPage implements OnInit {
         }
 
         this.prestamo.saldo = await this.calcSaldoPendiente(tipo);
-        console.log('calcDiferenciaInteresXCuota', await this.calcDiferenciaInteresXCuota());
 
         if (tipo === 'P' && this.habilitarAplicaInteres && this.prestamo.saldo > 0) {
           this.prestamo.intereses += await this.calcDiferenciaInteresXCuota();
-          console.log('entra 1° this.prestamo.intereses', this.prestamo.intereses);
         }
 
         if (tipo === 'P' && this.habilitarAplicaInteres && this.prestamo.saldo < 0) {
           // Actualizamos los intereses(saldo negativo que quede) y luego actualizamos el saldo a 0.
           this.prestamo.intereses += await this.calcDiferenciaInteresXCuota(); // el saldo negativo
-          console.log('entra 2° this.prestamo.intereses', this.prestamo.intereses);
           this.prestamo.saldo = 0;
         }
 
@@ -215,9 +214,10 @@ export class PrestamosDetallesPage implements OnInit {
     alert.present();
     alert.onDidDismiss()
       .then(((res) => {
-        if (res.role === "cancel") {
+        if (res.role === "cancel")
           return;
-        }
+        else if (res.role === "backdrop") // hace click fuera del modal
+          return;
         else {
           // Como se va a eliminar, necesitamos pasarle el monto al input del pago, 
           // que después lo toma para actualizar el saldo.

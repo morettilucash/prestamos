@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ClientesController } from "../controllers/clientes.controller";
-
+import * as mw from './auth_mw';
 
 export class ClientesRouter {
 
@@ -8,21 +8,21 @@ export class ClientesRouter {
 
     public routes(app): void {
         app.route('/api/v1/clientes')
-            .get((req: Request, res: Response, next: NextFunction) => {
+            .get(mw.jwtAdminMidleware, (req: Request, res: Response, next: NextFunction) => {
                 next();
-            },  this.controlador.getClientes)
-            .post(this.controlador.createCliente);
+            }, mw.jwtAdminMidleware, this.controlador.getClientes)
+            .post(mw.jwtAdminMidleware, this.controlador.createCliente);
 
         app.route('/api/v1/cliente/:id')
-            .get( this.controlador.getCliente)
-            .put(this.controlador.updateCliente)
-            .delete( this.controlador.deleteCliente);
+            .get(mw.jwtAdminMidleware, this.controlador.getCliente)
+            .put(mw.jwtAdminMidleware, this.controlador.updateCliente)
+            .delete(mw.jwtAdminMidleware, this.controlador.deleteCliente);
 
         app.route('/api/v1/clientes/paginado')
-            .get(this.controlador.findByTxtPaginated);
+            .get(mw.jwtAdminMidleware, this.controlador.findByTxtPaginated);
 
         app.route('/api/v1/clientes/faker')
-            .post(this.controlador.createClienteFaker);
+            .post(mw.jwtAdminMidleware, this.controlador.createClienteFaker);
     }
 
 }

@@ -89,11 +89,11 @@ __decorate([
     __metadata("design:type", String)
 ], Prestamos.prototype, "estado", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => clientes_1.Clientes, cliente => cliente.id),
+    typeorm_1.ManyToOne(type => clientes_1.Clientes, cliente => cliente.id, { onDelete: 'CASCADE' }),
     __metadata("design:type", clientes_1.Clientes)
 ], Prestamos.prototype, "clienteId", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => pagos_1.Pagos, pago => pago.prestamoId),
+    typeorm_1.OneToMany(type => pagos_1.Pagos, pago => pago.prestamoId, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Prestamos.prototype, "pagos", void 0);
 Prestamos = __decorate([

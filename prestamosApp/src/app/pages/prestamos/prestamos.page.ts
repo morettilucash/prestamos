@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
+// import { Observable } from 'rxjs';
 import { Prestamos } from 'src/app/models/prestamos';
 import { PrestamosService } from 'src/app/services/prestamos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PaginacionService } from 'src/app/services/globales/paginacion/paginacion.service';
-import { tap } from 'rxjs/operators';
+import { ToastsService } from 'src/app/services/toasts.service';
+// import { tap } from 'rxjs/operators';
+// import { DoubleTapDirective } from 'src/app/directives/double-tap.directive';
 
 @Component({
   selector: 'app-prestamos',
   templateUrl: './prestamos.page.html',
   styleUrls: ['./prestamos.page.scss'],
 })
-export class PrestamosPage implements OnInit {
+export class PrestamosPage implements OnInit, AfterContentInit {
 
-  // prestamos$: Observable<Prestamos[]>;
+  // @ViewChild(DoubleTapDirective) doubleTapable: DoubleTapDirective;
   prestamos: Prestamos[] = [];
   clienteId: number;
 
@@ -23,10 +25,16 @@ export class PrestamosPage implements OnInit {
   order: string = 'fecha_hora';
   ad: string = 'DESC'; // asc. y desc.
 
-  constructor(private _prestamos: PrestamosService, private _router: Router, private _actRoute: ActivatedRoute, private _pag: PaginacionService) { }
+  constructor(private _prestamos: PrestamosService, private _router: Router, private _actRoute: ActivatedRoute, private _pag: PaginacionService,
+    private _toast: ToastsService) { }
 
   ngOnInit() {
 
+  }
+
+  ngAfterContentInit() {
+    // How can i call functionFromDirective()?
+    // this.doubleTapDir.onTap()
   }
 
   getAll() {
@@ -74,7 +82,7 @@ export class PrestamosPage implements OnInit {
 
   getPag() {
     this.clienteId = parseInt(this._actRoute.snapshot.paramMap.get('id'));
-    
+
     if (this.clienteId) {
       console.log('Obteniendo x id cliente:', this.clienteId);
       this.getByIdCliente();
@@ -95,6 +103,31 @@ export class PrestamosPage implements OnInit {
 
         });
     }
+  }
+
+  async delete(p) {
+    const tit: string = '¡Eliminar préstamo!';
+    const msg: string = '¿Estás seguro?';
+    let alert = await this._toast.deleteToast(tit, msg)
+
+    alert.present();
+    alert.onDidDismiss()
+      .then(((res) => {
+        if (res.role === "cancel")
+          return;
+        else if (res.role === "backdrop") // hace click fuera del modal
+          return;
+        else
+          this._prestamos.delete(p.id).toPromise()
+            .then((data: any) => {
+              this._toast.successToast('Eliminado con éxito');
+              this.getPag();
+            })
+            .catch(err => {
+              console.log(err);
+              this._toast.errorToast(err)
+            })
+      }));
   }
 
 }

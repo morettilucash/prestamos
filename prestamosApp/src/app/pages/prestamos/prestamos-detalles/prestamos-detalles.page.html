@@ -3,29 +3,22 @@
      <ion-buttons slot="start">
        <ion-icon name="arrow-back-outline" (click)="regresar()"></ion-icon>
      </ion-buttons>
-     <ion-title>prestamos-detalles</ion-title>
+     <ion-title> Detalles del préstamo</ion-title>
    </ion-toolbar>
  </ion-header>
 
  <ion-content *ngIf="prestamo$ | async as p">
 
-
-   <h2> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }} </h2>
    <ion-row>
-     <ion-col size="6">
+     <ion-col size="12">
        <ion-card>
+         <h2> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }} </h2>
          <ion-item>
            <ion-label>
              Monto
              <br>
              <p class="price">{{ p.monto | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
            </ion-label>
-         </ion-item>
-       </ion-card>
-     </ion-col>
-     <ion-col size="6">
-       <ion-card>
-         <ion-item>
            <ion-label>
              Saldo
              <br>
@@ -34,9 +27,9 @@
          </ion-item>
        </ion-card>
      </ion-col>
-     <!-- </div> -->
+
      <ion-col size="12">
-       <ion-card>
+       <ion-card class="ion-align-self-center">
          <ion-item>
            <ion-label>
              Cuotas
@@ -66,9 +59,6 @@
              <p class="price"> {{ p.intereses | currency : 'ARS' : 'symbol': '1.0-0' }} </p>
            </ion-label>
          </ion-item>
-         <ion-item *ngIf="p.estado === 'Vigente'" color="warning"> Estado: {{ p.estado }} </ion-item>
-         <ion-item *ngIf="p.estado === 'Saldado'" color="success"> Estado: {{ p.estado }} </ion-item>
-         <ion-item *ngIf="p.estado === 'Deuda'" color="tertiary"> Estado: {{ p.estado }} </ion-item>
          <ion-item>
            <ion-label>
              Realizado
@@ -81,92 +71,91 @@
              <p class="price"> {{ p.vencimiento | date: 'yyyy-MM-dd' }} </p>
            </ion-label>
          </ion-item>
+         <ion-item *ngIf="p.estado === 'Vigente'" color="warning"> Estado: {{ p.estado }} </ion-item>
+         <ion-item *ngIf="p.estado === 'Saldado'" color="success"> Estado: {{ p.estado }} </ion-item>
+         <ion-item *ngIf="p.estado === 'Deuda'" color="tertiary"> Estado: {{ p.estado }} </ion-item>
        </ion-card>
      </ion-col>
    </ion-row>
 
 
-   <!-- 
-      <p>Monto: {{ p.monto | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
-      <p>Saldo: {{ p.saldo  | currency : 'ARS' : 'symbol': '1.0-0'  }}</p>
-
-      <p>Realizado: {{ p.fecha_hora | date: 'yyyy-MM-dd'}} </p>
-      <p>Vence: {{ p.vencimiento | date: 'yyyy-MM-dd' }}</p>
-      
-      <p>Tasa: %{{ p.tasa_interes }} - Intereses: {{ p.intereses | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
-      <p>Cuotas: {{ p.cantidad_cuotas }} - Pagadas: {{ p.cuotas_pagadas }}</p>
-
-      <p>Tipo pago: {{ p.tipo_pago }} </p>
-      <p>Estado: {{ p.estado }}</p>
-
-      <p>Valor de c/cuota: {{ p.valor_cuota | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
-      <p>Ganancia hasta la fecha(agregar):</p>
-
-      <p>Pagos:</p> -->
-
-   <ion-row>
-     <ion-col size="12">
-       <ion-card>
-         <ion-item color="tertiary" outline="true" *ngFor="let pa of p.pagos">
-           <ion-label>
-             # {{ pa.nro_cuota }} - {{ pa.monto | currency : 'ARS' : 'symbol': '1.0-0'  }} -
-             {{ pa.fecha_hora | date: 'yyyy-MM-dd' }}
-           </ion-label>
-           <ion-icon class="ion-padding-start" name="trash-outline" (click)="deletePago(pa)"></ion-icon>
-         </ion-item>
-       </ion-card>
-     </ion-col>
-   </ion-row>
-   
-   <h2>Agregar pago</h2>
    <ion-card>
-     <ion-card-content>
-       <ion-row>
-         <ion-col size=6>
-           <ion-item>
-             <ion-label position="floating">Monto</ion-label>
-             <ion-input type="number" [(ngModel)]="montoCuota" (ionChange)="calcGananciaCuota('no')"
-               (keyup)="habilitarAplicaInteres = false;"></ion-input>
-           </ion-item>
-         </ion-col>
-         <ion-col size=6>
-           <ion-item>
-             <ion-label position="floating">Ganancia</ion-label>
-             <ion-input type="number" [(ngModel)]="ganancia"></ion-input>
-           </ion-item>
-         </ion-col>
-         <ion-col size="8">
-           <ion-list>
-             <ion-item>
-               <ion-toggle [(ngModel)]="habilitarAplicaInteres" (ionChange)="habilitarAplicaInteresFn()"></ion-toggle>
-               <ion-label>Aplicar interés</ion-label>
-             </ion-item>
-           </ion-list>
-         </ion-col>
-         <ion-col size="4">
-           <ion-item>
-             <ion-label position="floating">Interés</ion-label>
-             <ion-select [disabled]="!habilitarAplicaInteres" [(ngModel)]="interesAplicado" type="number"
-               interface="popover" (ionChange)="habilitarAplicaInteres = false; montoCuota = 0">
-               <!-- calcInteresCuota()" -->
-               <ion-select-option type="number" *ngFor="let t of arrTasaInt" [value]="t"> {{ t }}</ion-select-option>
-             </ion-select>
-           </ion-item>
-         </ion-col>
-         <ion-col size="12">
-           <ion-item>
-             <ion-label position="floating">Fecha</ion-label>
-             <ion-datetime min="2016" max="2050-12-31" displayFormat="YYYY-MM-DD" [(ngModel)]="fcHoy"
-               placeholder="Seleccionar fecha">
-             </ion-datetime>
-           </ion-item>
-         </ion-col>
-       </ion-row>
-
+     <h2 *ngIf="p.pagos.length == 0">No hay pagos aún.</h2>
+     <h2 *ngIf="p.pagos.length != 0">Pagos</h2>
+     <ion-row>
        <ion-col size="12">
-         <ion-button (click)="savePago()" expand="block" fill="outline">Confirmar</ion-button>
+         <ion-card>
+           <ion-item color="tertiary" outline="true" *ngFor="let pa of p.pagos">
+             <ion-label>
+               # {{ pa.nro_cuota }} - {{ pa.monto | currency : 'ARS' : 'symbol': '1.0-0'  }} -
+               {{ pa.fecha_hora | date: 'yyyy-MM-dd' }}
+             </ion-label>
+             <ion-icon class="ion-padding-start" name="trash-outline" (click)="deletePago(pa)"></ion-icon>
+           </ion-item>
+         </ion-card>
+       </ion-col>
+     </ion-row>
+   </ion-card>
+
+   <ion-card>
+     <h2>Agregar pago</h2>
+     <ion-row>
+       <ion-col size=6>
+         <ion-item>
+           <ion-label position="floating">Monto</ion-label>
+           <ion-input type="number" [(ngModel)]="montoCuota" (ionChange)="calcGananciaCuota('no')"
+             (keyup)="habilitarAplicaInteres = false;"></ion-input>
+         </ion-item>
+       </ion-col>
+       <ion-col size=6>
+         <ion-item>
+           <ion-label position="floating">Ganancia</ion-label>
+           <ion-input type="number" [(ngModel)]="ganancia"></ion-input>
+         </ion-item>
        </ion-col>
 
-     </ion-card-content>
+       <ion-col size="6">
+         <ion-item>
+           <ion-label position="floating">Fecha</ion-label>
+           <ion-datetime min="2016" max="2050-12-31" displayFormat="YYYY-MM-DD" [(ngModel)]="fcHoy"
+             placeholder="Seleccionar fecha">
+           </ion-datetime>
+         </ion-item>
+       </ion-col>
+
+       <ion-col size="6">
+         <ion-item>
+           <ion-label>
+             Cuotas de
+             <br>
+             <p class="price"> {{ p.valor_cuota | currency : 'ARS' : 'symbol': '1.0-0' }}</p>
+           </ion-label>
+         </ion-item>
+       </ion-col>
+
+       <ion-col size="8">
+         <ion-list>
+           <ion-item>
+             <ion-toggle [(ngModel)]="habilitarAplicaInteres" (ionChange)="habilitarAplicaInteresFn()"></ion-toggle>
+             <ion-label>Aplicar interés</ion-label>
+           </ion-item>
+         </ion-list>
+       </ion-col>
+       <ion-col size="4">
+         <ion-item>
+           <ion-label position="floating">Interés</ion-label>
+           <ion-select [disabled]="!habilitarAplicaInteres" [(ngModel)]="interesAplicado" type="number"
+             interface="popover" (ionChange)="habilitarAplicaInteres = false; montoCuota = 0">
+             <!-- calcInteresCuota()" -->
+             <ion-select-option type="number" *ngFor="let t of arrTasaInt" [value]="t"> {{ t }}</ion-select-option>
+           </ion-select>
+         </ion-item>
+       </ion-col>
+     </ion-row>
+
+     <ion-col size="12">
+       <ion-button (click)="savePago()" expand="block" fill="outline">Confirmar</ion-button>
+     </ion-col>
+
    </ion-card>
  </ion-content>

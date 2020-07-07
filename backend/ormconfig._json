@@ -1,40 +1,10 @@
-Host
-ec2-35-172-73-125.compute-1.amazonaws.com
-Database
-deotfgmmc12ou2
-User
-fvkhcqiawlanni
-Port
-5432
-Password
-f7f58d23fd5c35e34ecde1657a8fd9ddcb7b8d29295df7d6bfb458d059fdc456
-
 {
-    "type": "postgres",
-    "host": "ec2-35-172-73-125.compute-1.amazonaws.com",
-    "port": 5432,
-    "username": "fvkhcqiawlanni",
-    "password": "f7f58d23fd5c35e34ecde1657a8fd9ddcb7b8d29295df7d6bfb458d059fdc456",
-    "database": "deotfgmmc12ou2",
-    "entities": [
-        "dist/src/Entities/**/*{.ts,.js}"
-    ],
-    "migrationsTableName": "app_migration_table",
-    "migrations": [
-        "dist/migration/**{.ts,.js}"
-    ],
-    "cli": {
-        "migrationsDir": "migration"
-    }
-}
-
-{
-    "type": "postgres",
+    "type": "mysql",
     "host": "localhost",
-    "port": 5432,
-    "username": "postgres",
-    "password": "root",
-    "database": "prestamos",
+    "port": 3306,
+    "username": "user",
+    "password": "password",
+    "database": "databse",
     "entities": [
         "dist/src/Entities/**/*{.ts,.js}"
     ],
@@ -43,7 +13,6 @@ f7f58d23fd5c35e34ecde1657a8fd9ddcb7b8d29295df7d6bfb458d059fdc456
         "dist/migration/**{.ts,.js}"
     ],
     "cli": {
-        "migrationsDir": "migration"
+        "migrationsDir": "dist/migration"
     }
 }
-

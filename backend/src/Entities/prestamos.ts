@@ -42,10 +42,10 @@ export class Prestamos extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     estado: string;
 
-    @ManyToOne(type => Clientes, cliente => cliente.id)
+    @ManyToOne(type => Clientes, cliente => cliente.id, { onDelete: 'CASCADE' })
     clienteId: Clientes;
 
-    @OneToMany(type => Pagos, pago => pago.prestamoId)
+    @OneToMany(type => Pagos, pago => pago.prestamoId, { onDelete: 'CASCADE' })
     pagos: Pagos[];
 
     static findPaginaByEstado(pageNro: number, pageSize: number, estado: string, order: string, ad: any) {

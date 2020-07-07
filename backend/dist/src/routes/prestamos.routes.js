@@ -1,6 +1,14 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const prestamos_controller_1 = require("../controllers/prestamos.controller");
+const mw = __importStar(require("./auth_mw"));
 class PrestamosRouter {
     constructor() {
         this.controlador = new prestamos_controller_1.PrestamosController();
@@ -9,16 +17,16 @@ class PrestamosRouter {
         app.route('/api/v1/prestamos')
             .get((req, res, next) => {
             next();
-        }, this.controlador.getPrestamos)
-            .post(this.controlador.createPrestamo);
+        }, mw.jwtAdminMidleware, this.controlador.getPrestamos)
+            .post(mw.jwtAdminMidleware, this.controlador.createPrestamo);
         app.route('/api/v1/prestamo/:id')
-            .get(this.controlador.getPrestamo)
-            .put(this.controlador.updatePrestamo)
-            .delete(this.controlador.deletePrestamo);
+            .get(mw.jwtAdminMidleware, this.controlador.getPrestamo)
+            .put(mw.jwtAdminMidleware, this.controlador.updatePrestamo)
+            .delete(mw.jwtAdminMidleware, this.controlador.deletePrestamo);
         app.route('/api/v1/prestamos/cliente/:id')
-            .get(this.controlador.getPrestamoByIdCliente);
+            .get(mw.jwtAdminMidleware, this.controlador.getPrestamoByIdCliente);
         app.route('/api/v1/prestamos/paginado')
-            .get(this.controlador.findPaginaByEstado);
+            .get(mw.jwtAdminMidleware, this.controlador.findPaginaByEstado);
     }
 }
 exports.PrestamosRouter = PrestamosRouter;

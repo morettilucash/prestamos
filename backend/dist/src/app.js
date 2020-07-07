@@ -36,14 +36,20 @@ const cors_1 = __importDefault(require("cors"));
 const bodyParser = __importStar(require("body-parser"));
 // Routes
 const clientes_routes_1 = require("./routes/clientes.routes");
+const usuarios_routes_1 = require("./routes/usuarios.routes");
 const prestamos_routes_1 = require("./routes/prestamos.routes");
 const pagos_routes_1 = require("./routes/pagos.routes");
+const login_routes_1 = require("./routes/login.routes");
+const estadisticas_routes_1 = require("./routes/estadisticas.routes");
 class App {
     constructor() {
         this.logger = require('morgan'); // Registro de cada petición
         this.routeClientes = new clientes_routes_1.ClientesRouter();
+        this.routeUsuarios = new usuarios_routes_1.UsuariosRouter();
         this.routePrestamos = new prestamos_routes_1.PrestamosRouter();
         this.routePagos = new pagos_routes_1.PagosRouter();
+        this.routeLogin = new login_routes_1.LoginRoutes();
+        this.routeEst = new estadisticas_routes_1.EstadisticasRouter();
         console.log('Iniciando Servidor');
         this.app = express_1.default();
         typeorm_1.createConnection()
@@ -57,6 +63,9 @@ class App {
         this.routeClientes.routes(this.app);
         this.routePagos.routes(this.app);
         this.routePrestamos.routes(this.app);
+        this.routeLogin.routes(this.app);
+        this.routeUsuarios.routes(this.app);
+        this.routeEst.routes(this.app);
     }
     config() {
         this.app.use(this.logger('dev'));

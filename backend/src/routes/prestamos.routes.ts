@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrestamosController } from "../controllers/prestamos.controller";
+import * as mw from './auth_mw';
 
 
 export class PrestamosRouter {
@@ -10,19 +11,19 @@ export class PrestamosRouter {
         app.route('/api/v1/prestamos')
             .get((req: Request, res: Response, next: NextFunction) => {
                 next();
-            }, this.controlador.getPrestamos)
-            .post(this.controlador.createPrestamo);
+            }, mw.jwtAdminMidleware,this.controlador.getPrestamos)
+            .post(mw.jwtAdminMidleware,this.controlador.createPrestamo);
 
         app.route('/api/v1/prestamo/:id')
-            .get(this.controlador.getPrestamo)
-            .put(this.controlador.updatePrestamo)
-            .delete(this.controlador.deletePrestamo);
+            .get(mw.jwtAdminMidleware,this.controlador.getPrestamo)
+            .put(mw.jwtAdminMidleware,this.controlador.updatePrestamo)
+            .delete(mw.jwtAdminMidleware,this.controlador.deletePrestamo);
 
         app.route('/api/v1/prestamos/cliente/:id')
-            .get(this.controlador.getPrestamoByIdCliente)
+            .get(mw.jwtAdminMidleware,this.controlador.getPrestamoByIdCliente)
             
         app.route('/api/v1/prestamos/paginado')
-            .get(this.controlador.findPaginaByEstado);
+            .get(mw.jwtAdminMidleware,this.controlador.findPaginaByEstado);
 
     }
 

@@ -18,7 +18,7 @@ class UsuariosRouter {
             .get((req, res, next) => {
             next();
         }, mw.jwtAdminMidleware, this.controlador.getUsuarios)
-            .post(mw.jwtAdminMidleware, this.controlador.createUsuario);
+            .post(this.controlador.createUsuario);
         app.route('/api/v1/usuario/:id')
             .get(mw.jwtAdminMidleware, this.controlador.getUsuario)
             .put(mw.jwtAdminMidleware, this.controlador.updateUsuario)
